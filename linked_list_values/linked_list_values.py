@@ -1,5 +1,6 @@
 
 # recursive
+#O(n) time | O(n) space where n is the number of nodes in the linked_list
 def linked_list_values(head):
   values = []
   fill_values(head, values)
