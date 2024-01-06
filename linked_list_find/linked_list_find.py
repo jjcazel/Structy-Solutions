@@ -3,7 +3,7 @@
 #     self.val = val
 #     self.next = None
 ​
-​
+# O(n) time and O(n) space
 def linked_list_find(head, target):
   if head is None: 
     return False
