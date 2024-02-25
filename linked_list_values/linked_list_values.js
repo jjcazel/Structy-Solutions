@@ -1,4 +1,3 @@
-
 // class Node {
 //   constructor(val) {
 //     this.val = val;
@@ -7,16 +6,14 @@
 // }
 ​
 // O(n) time and O(n) space where n is the number of nodes
-const linkedListValues = (head) => {
-  const nodeValues = [];
-  
-  while (head !== null) {
-    nodeValues.push(head.val);
-    head = head.next;
+const linkedListValues = (head, nodeValues = []) => {
+  if (head === null) {
+    return nodeValues;
   }
-  
-  return nodeValues;
+  nodeValues.push(head.val);
+   return linkedListValues(head.next, nodeValues);
 };
+​
 ​
 // creating an output array
 // loop through the linked list until we get to the null node
@@ -29,4 +26,3 @@ module.exports = {
   linkedListValues,
 };
 ​
-};
