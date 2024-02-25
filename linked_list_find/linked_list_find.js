@@ -6,6 +6,7 @@
 //   }
 // }
 ​
+//O(n) time and O(n) space, n = number of nodes
 function linkedListFind(head, target) {
   if (!head) return false;
   if (head.val === target) {
