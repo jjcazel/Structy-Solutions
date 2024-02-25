@@ -6,19 +6,28 @@
 //   }
 // }
 ​
-//O(n) time and O(n) space, n = number of nodes
-const linkedListFind = (head, target) => {
-  let current = head;
-  
-  while (current) {
-    if (current.val === target) {
-      return true;
-    }
-    current = current.next;
+function linkedListFind(head, target) {
+  if (!head) return false;
+  if (head.val === target) {
+    return true;
   }
+  return linkedListFind(head.next, target);
+}
+​
+​
+//O(n) time and O(n) space, n = number of nodes
+// const linkedListFind = (head, target) => {
+//   let current = head;
   
-  return false;
-};
+//   while (current) {
+//     if (current.val === target) {
+//       return true;
+//     }
+//     current = current.next;
+//   }
+  
+//   return false;
+// };
 ​
 // loop through the head until I get to the null node
 // at each node check if the target matches the current value
