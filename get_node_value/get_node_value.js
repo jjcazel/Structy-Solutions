@@ -6,7 +6,7 @@
 //   }
 // }
 ​
-//
+// O(n) time and O(1) space, n = number of nodes
 const getNodeValue = (head, index) => {
   let count = 0;
   
@@ -18,29 +18,11 @@ const getNodeValue = (head, index) => {
     count++;
   }
   
-  return null;
+  return  null;
 };
 ​
+module.exports = {
+  getNodeValue,
+};
 ​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-// O(n) time and O(1) space - 10.24
-// const getNodeValue = (head, index) => {
-//   let count = 0;
-//   while (count <= index && head) {
-//     if (count === index) {
-//       return head.val;
-​
+      return head.val;
