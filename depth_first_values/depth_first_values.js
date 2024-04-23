@@ -60,7 +60,6 @@ const depthFirstValues = (root) => {
 //   const output = [];
 //   const stack = [root]
 
-
 //   while (stack.length > 0) {
 //     const current = stack.pop();
 //     output.push(current.val);
@@ -72,22 +71,8 @@ const depthFirstValues = (root) => {
 //     } 
 //   }
 
-
 //   return output;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
