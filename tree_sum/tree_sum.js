@@ -9,7 +9,18 @@
 
 const treeSum = (root) => {
   if (!root) return 0;
-  return root.val + treeSum(root.left) + treeSum(root.right);
+  let sum = 0; 
+  let stack = [ root ];
+
+
+  while (stack.length) {
+    const currNode = stack.pop();
+    sum += currNode.val;
+    if (currNode.left) stack.push(currNode.left);
+    if (currNode.right) stack.push(currNode.right);
+  }
+  
+  return sum;
 };
 
 
