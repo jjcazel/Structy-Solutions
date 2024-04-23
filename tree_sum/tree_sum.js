@@ -6,7 +6,7 @@
 //   }
 // }
 
-
+//O(n) time and O(n) space
 const treeSum = (root) => {
   if (!root) return 0;
   let sum = 0; 
