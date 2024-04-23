@@ -7,9 +7,22 @@
 // }
 
 const treeIncludes = (root, target) => {
-  if (!root) return false;
-  if (root.val === target) return true;
-  return treeIncludes(root.right, target) || treeIncludes(root.left, target);
+  const queue = [root];
+
+  while (queue.length) {
+    const currNode = queue.shift();
+    if (currNode?.val === target) {
+      return true;
+    }
+    if (currNode?.left) {
+      queue.push(currNode.left);
+    }
+    if (currNode?.right) {
+      queue.push(currNode.right);
+    }
+  }
+
+  return false;
 };
 
 
