@@ -6,7 +6,7 @@
 //   }
 // }
 
-
+//O(n) time and O(n) space where n is the number of nodes
 const maxPathSum = (root) => {
   if (!root) return -Infinity;
   if (!root.left && !root.right) return root.val;
