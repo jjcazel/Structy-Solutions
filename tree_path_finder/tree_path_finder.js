@@ -6,22 +6,28 @@
 //   }
 // }
 
-
 //O(n) time and O(n) space
-const pathFinder = (root, target) => {
-  // DFS recursive
-  // base case: if root is null return empty array
-  // base case: if the root's value equals target return the root's value in an array
-  // recursive call: return recursive calls to the left and right children spread in an array with the root's value
+function pathFinder(root, target) {
+  const pathToTarget = pathFinderHelper(root, target);
+  if (pathToTarget) {
+    return pathToTarget.reverse();
+  } else {
+    return null;
+  }
+}
+
+const pathFinderHelper = (root, target) => {
   if (!root) return null;
   if (root.val === target) return [ root.val ];
-  const leftPath = pathFinder(root.left, target);
-  const rightPath = pathFinder(root.right, target);
+  const leftPath = pathFinderHelper(root.left, target);
+  const rightPath = pathFinderHelper(root.right, target);
   if (leftPath) {
-    return [root.val, ...leftPath];
+    leftPath.push(root.val);
+    return leftPath;
   }
   if (rightPath) {
-    return [root.val, ...rightPath];
+    rightPath.push(root.val);
+    return rightPath;
   }
   return null;
 };
