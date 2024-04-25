@@ -6,21 +6,22 @@
 //   }
 // }
 
-//O(n) time and O(n) space where n is the number of nodes
+
+//O(n) time and O(n) space
 const bottomRightValue = (root) => {
-  const queue = [ root ];
-  let lastValue = root.val; // -4
-	
-  while (queue.length) {
-    const currNode = queue.shift(); //assume this is an O(1) operation
-    lastValue = currNode.val;
-    if (currNode.left) queue.push(currNode.left);
-    if (currNode.right) queue.push(currNode.right);
+  const q = [ root ];
+  let rightVal = root.val;
+
+
+  while (q.length) {
+    const currNode = q.shift(); // assume that this is O(1)
+    rightVal = currNode.val;
+    if (currNode.left) q.push(currNode.left);
+    if (currNode.right) q.push(currNode.right);
   }
-  
-  return lastValue;
 
 
+  return rightVal;
 };
 
 
