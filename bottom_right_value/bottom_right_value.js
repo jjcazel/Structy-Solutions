@@ -6,7 +6,7 @@
 //   }
 // }
 
-/O(n) time and O(n) space where n is the number of nodes
+//O(n) time and O(n) space where n is the number of nodes
 const bottomRightValue = (root) => {
   const queue = [ root ];
   let lastValue = root.val; // -4
