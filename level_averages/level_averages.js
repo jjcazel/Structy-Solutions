@@ -28,7 +28,7 @@ const levelAverages = (root) => {
 
   for (let i = 0; i < allAvgs.length; i++) { 
     for (let j = 0; j < allAvgs[i].length; j++) { 
-      if (i === 0 && j === 0) {
+      if (i === 0) {
         allAvgs[i] = allAvgs[i][j];
       } else {
         const sum = allAvgs[i].reduce((acc, ele) => acc + ele);
