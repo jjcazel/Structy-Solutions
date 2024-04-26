@@ -39,8 +39,6 @@ const levelAverages = (root) => {
 
 
   return allAvgs;
-
-
 };
 
 
