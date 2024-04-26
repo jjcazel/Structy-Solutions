@@ -10,30 +10,23 @@
 //O(n) time and O(n) space where n is the number of nodes
 const treeLevels = (root) => {
   if (!root) return [];
-  const stack = [ {node: root, level: 0} ]; // [ {node: {val: d, ...}, level: 2}, {node: {val: }, level: 1} ]
-  const levels = []; // [['a'], ['b', 'c'], []]
+  const stack = [ {node: root, level: 0} ];
+  const allLevels = [];
 
 
   while (stack.length) {
-    const currNodeAndLevel = stack.pop(); //
-    const currNode = currNodeAndLevel.node; // {val: 'a', left: {...}}
-    const currLevel = currNodeAndLevel.level;// 2
-    if (levels[currLevel] == null) {
-      levels[currLevel] = [];
+    const { node, level } = stack.pop();
+    if (allLevels.length === level) {
+      allLevels.push([ node.val ]);
+    } else {
+      allLevels[level].push(node.val);
     }
-    if (currNode) {
-      levels[currLevel].push(currNode.val);
-      if (currNode.right) {
-        stack.push({node: currNode.right, level: currLevel + 1});
-      }
-      if (currNode.left) {
-        stack.push({node: currNode.left, level: currLevel + 1});
-      }
-    }
+    if (node.right) stack.push({ node: node.right, level: level + 1});
+    if (node.left) stack.push({ node: node.left, level: level + 1});
   }
 
 
-  return levels;
+  return allLevels;
 };
 
 
