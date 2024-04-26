@@ -7,7 +7,6 @@ const hasPath = (graph, src, dst) => {
 
   while (stack.length) {
     const currentNode = stack.pop();
-    console.log(currentNode);
     if (currentNode === dst) return true;
     for (const neighbor of graph[currentNode]) {
       stack.push(neighbor);
