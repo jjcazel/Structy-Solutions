@@ -11,11 +11,11 @@
 const levelAverages = (root) => {
   if (!root) return [];
   const stack = [ { node: root, level: 0 } ];
-  const allAvgs = []; // [3 , [11, 4], [4, -2, 1]]
+  const allAvgs = []; 
 
 
   while (stack.length) {
-    const { node, level } = stack.pop(); //node: val = 11, level: 1
+    const { node, level } = stack.pop(); 
     if (allAvgs.length === level) {
       allAvgs[level] = [ node.val ];
     } else {
@@ -24,14 +24,14 @@ const levelAverages = (root) => {
     if (node.left) stack.push({ node: node.left, level: level + 1});
     if (node.right) stack.push({ node: node.right, level: level + 1});
   }
-  console.log('allAvgs', allAvgs);
-  for (let i = 0; i < allAvgs.length; i++) { // i = 1
-    for (let j = 0; j < allAvgs[i].length; j++) { // j = 0
+
+
+  for (let i = 0; i < allAvgs.length; i++) { 
+    for (let j = 0; j < allAvgs[i].length; j++) { 
       if (i === 0 && j === 0) {
         allAvgs[i] = allAvgs[i][j];
       } else {
         const sum = allAvgs[i].reduce((acc, ele) => acc + ele);
-        console.log('sum', sum, 'level', allAvgs[i].length);
         allAvgs[i] = sum / allAvgs[i].length;
       }
     }
