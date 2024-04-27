@@ -42,21 +42,6 @@ const buildGraph = (edges) => {
 
 
 
-
-
-
-console.log(undirectedPath([
-  ['b', 'a'],
-  ['c', 'a'],
-  ['b', 'c'],
-  ['q', 'r'],
-  ['q', 's'],
-  ['q', 'u'],
-  ['q', 't'],
-], 'b', 'q'))
-
-
-
 //O(e) time and O(n) space where e = edges and n = nodes - 10.29.22
 // const undirectedPath = (edges, nodeA, nodeB) => {
 //   const graph = buildGraph(edges);
@@ -88,7 +73,6 @@ console.log(undirectedPath([
 //   // console.log('adjacency', graph);
 //   return graph;
 // }
-
 
 
 //recursive solution with adjancey list
@@ -134,8 +118,6 @@ console.log(undirectedPath([
 // }
 
 
-
-
 // naive iterative approach
 // const undirectedPath = (edges, nodeA, nodeB) => {
 //   const path = [ ...edges[0] ]; // ['s', 'r', 'q', 'r']
@@ -155,11 +137,6 @@ console.log(undirectedPath([
 //    return false;
 //   }
 // };
-
-
-
-
-
 
 module.exports = {
   undirectedPath
