@@ -7,33 +7,39 @@
 // }
 
 
-//O(n) time and O(n) space where n is the number of nodes
+//O(n) and O(n) space where n is the number of nodes
 const levelAverages = (root) => {
-  if (!root) return [];
-  const stack = [ {node: root, level: 0} ];
-  const allAverages = [];
+  const allLevels = [];
+  fillLevels(root, allLevels, 0);
 
 
-  while (stack.length) {
-    const { node, level } = stack.pop();
-    if (allAverages.length === level) {
-      allAverages.push([ node.val ]);
-    } else {
-      allAverages[level].push(node.val);
-    }
-    if (node.left) stack.push({ node: node.left, level: level + 1});
-    if (node.right) stack.push({ node: node.right, level: level + 1});
+  const avgs = [];
+  for (let level = 0; level < allLevels.length; level++) {
+    const sum = allLevels[level].reduce((acc, num) => acc + num);
+    avgs[level] = sum / allLevels[level].length;
   }
 
 
-  for (let level = 0; level < allAverages.length; level++) {
-    const sum = allAverages[level].reduce((acc, num) => acc + num);
-    allAverages[level] = sum / allAverages[level].length;
-  }
-
-
-  return allAverages;
+  return avgs;
 };
+
+
+const fillLevels = (root, levels, levelNum) => {
+  if (!root) return;
+
+
+  if (levelNum === levels.length) {
+    levels[levelNum] = [ root.val ];
+  } else {
+    levels[levelNum].push(root.val);
+  }
+
+
+  levelNum += 1;
+  
+  fillLevels(root.left, levels, levelNum);
+  fillLevels(root.right, levels, levelNum);
+}
 
 
 module.exports = {
