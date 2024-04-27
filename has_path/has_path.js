@@ -1,17 +1,11 @@
 
 
-//O(n) time and O(n) space where n is the number of nodes
+// O(e) time and O(n) space where e is the num of edges and n is the num of nodes
 const hasPath = (graph, src, dst) => {
-  const stack = [ src ];
-
-  while (stack.length) {
-    const currentNode = stack.pop();
-    if (currentNode === dst) return true;
-    for (const neighbor of graph[currentNode]) {
-      stack.push(neighbor);
-    }
+  if (src === dst) return true;
+  for (const neighbor of graph[src]) {
+    if (hasPath(graph, neighbor, dst)) return true;
   }
-
   return false;
 };
 
