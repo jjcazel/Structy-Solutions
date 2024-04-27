@@ -4,7 +4,6 @@
 const hasPath = (graph, src, dst) => {
   const stack = [ src ];
 
-
   while (stack.length) {
     const currentNode = stack.pop();
     if (currentNode === dst) return true;
@@ -12,7 +11,6 @@ const hasPath = (graph, src, dst) => {
       stack.push(neighbor);
     }
   }
-
 
   return false;
 };
