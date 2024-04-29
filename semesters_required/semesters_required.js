@@ -1,56 +1,59 @@
-//O(p) time and O(n) space where p is the num of prereqs and n is the num of nodes
+// O(e) time and O(n) space where e is the num of edges and n is the num of nodes
 const semestersRequired = (numCourses, prereqs) => {
   const graph = buildGraph(numCourses, prereqs);
-  const semesterPaths = {};
-  
+  const semesterCounts = {};
+
+
   for (const course in graph) {
     if (graph[course].length === 0) {
-      semesterPaths[course] = 1;
+      semesterCounts[course] = 1;
     }
   }
-  
-  for (let i = 0; i < numCourses; i++) { // 1
-    countSemesters(graph, i, semesterPaths);
+
+
+  for (let course = 0; course < numCourses; course++) {
+    countSemesters(graph, course, semesterCounts);
   }
 
 
-  return Math.max(...Object.values(semesterPaths));
+  return Math.max(...Object.values(semesterCounts));
 };
 
 
-const countSemesters = (graph, node, semesterPaths) => {
-  if (node in semesterPaths) return semesterPaths[node]; 
+const countSemesters = (graph, course, semesterCounts) => {
+  if (semesterCounts[course]) return semesterCounts[course];
 
 
-  let maxSemesterCount = 0; // 2
-  for (const neighbor of graph[node]) {
-    let currCount = countSemesters(graph, neighbor, semesterPaths); // 2
-    if (currCount > maxSemesterCount) {
-      maxSemesterCount = currCount;
-    }
+  let maxCount = 1;
+  for (const neighbor of graph[course]) {
+    let currCount = countSemesters(graph, neighbor, semesterCounts);
+    if (currCount > maxCount) maxCount = currCount;
   }
 
 
-  semesterPaths[node] = 1 + maxSemesterCount;
-  return semesterPaths[node];
+  semesterCounts[course] = 1 + maxCount;
+  return semesterCounts[course];
 }
 
 
-const buildGraph = (numCourses, prereqs) => {
+const buildGraph = (numCourses, edges) => {
   const graph = {};
 
 
-  for (let i = 0; i < numCourses; i++) {
-    graph[i] = [];
+  for (let course = 0; course < numCourses; course++) {
+    if (!graph.hasOwnProperty(course)) graph[course] = [];
   }
-  
-  for (const [ a, b ] of prereqs) {
+
+
+  for (const [ a, b ] of edges) {
     graph[a].push(b);
   }
 
 
   return graph;
 }
+
+
 
 
 module.exports = {
