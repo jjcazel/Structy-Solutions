@@ -14,7 +14,16 @@ const knightAttack = (n, kr, kc, pr, pc) => {
     visited.add(position);
 
 
-    const knightDeltas = [[kRow + 2, kCol + 1], [kRow + 2, kCol - 1], [kRow - 2, kCol + 1], [kRow - 2, kCol - 1], [kRow + 1, kCol + 2], [kRow - 1, kCol + 2], [kRow + 1, kCol - 2], [kRow - 1, kCol - 2]];
+    const knightDeltas = [
+      [kRow + 2, kCol + 1], 
+      [kRow + 2, kCol - 1], 
+      [kRow - 2, kCol + 1], 
+      [kRow - 2, kCol - 1], 
+      [kRow + 1, kCol + 2], 
+      [kRow - 1, kCol + 2], 
+      [kRow + 1, kCol - 2], 
+      [kRow - 1, kCol - 2]
+    ];
 
 
     for (const neighbor of knightDeltas) {
