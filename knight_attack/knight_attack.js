@@ -1,4 +1,4 @@
-//O(r * c) time and O(r * c) space where r = rows and c = columns
+//O(n^2) time and O(n^2) space where n = num of rows and columns
 const knightAttack = (n, kr, kc, pr, pc) => {
   const visited = new Set();
   const queue = [ [kr, kc, 0] ];
