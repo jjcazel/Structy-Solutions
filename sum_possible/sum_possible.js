@@ -9,7 +9,7 @@ sumPossible(271, [10, 8, 265, 24]); // -> false
 sumPossible(2017, [4, 2, 10]); // -> false
 sumPossible(13, [3, 5]); // -> true
 sumPossible(10, [4, 5, 7]); // -> true
-// O(n * a) time and O(a) space where a is the amount and n is the length of numbers
+//O(n * a) time and O(a) space where n is the length of numbers and a is the amount
 const sumPossible = (amount, numbers, memo = {}) => {
   if (amount === 0) return true;
   if (amount < 0) return false;
@@ -20,7 +20,7 @@ const sumPossible = (amount, numbers, memo = {}) => {
     if (sumPossible(amount - num, numbers, memo)) {
       memo[amount] = true;
       return true;
-    };
+    }
   }
 
 
@@ -29,55 +29,7 @@ const sumPossible = (amount, numbers, memo = {}) => {
 };
 
 
+module.exports = {
+  sumPossible,
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log(sumPossible(271, [10, 8, 265, 24]))
-
-
-
-
-// O(an) time and O(a) space 
