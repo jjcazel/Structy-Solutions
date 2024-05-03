@@ -1,71 +1,116 @@
-//O(rc) time and O(rc) space where r is the num of rows and c is the num of cols
+const grid = [
+  ["W", "W", "W", "L", "L"],
+  ["L", "L", "W", "W", "L"],
+  ["L", "L", "L", "W", "L"],
+  ["W", "L", "W", "W", "W"],
+  ["W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W"],
+];
+bestBridge(grid); // -> 1
+const grid = [
+  ["W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W"],
+  ["L", "L", "W", "W", "L"],
+  ["W", "L", "W", "W", "L"],
+  ["W", "W", "W", "L", "L"],
+  ["W", "W", "W", "W", "W"],
+];
+bestBridge(grid); // -> 2
+const grid = [
+  ["W", "W", "W", "W", "W"],
+  ["W", "W", "W", "L", "W"],
+  ["L", "W", "W", "W", "W"],
+];
+bestBridge(grid); // -> 3
+const grid = [
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "L", "W", "W"],
+  ["W", "W", "W", "W", "L", "L", "W", "W"],
+  ["W", "W", "W", "W", "L", "L", "L", "W"],
+  ["W", "W", "W", "W", "W", "L", "L", "L"],
+  ["L", "W", "W", "W", "W", "L", "L", "L"],
+  ["L", "L", "L", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+];
+bestBridge(grid); // -> 3
+const grid = [
+  ["L", "L", "L", "L", "L", "L", "L", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "L", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "W", "W", "W", "W", "W", "W", "L"],
+  ["L", "L", "L", "L", "L", "L", "L", "L"],
+];
+bestBridge(grid); // -> 2
+const grid = [
+  ["W", "L", "W", "W", "W", "W", "W", "W"],
+  ["W", "L", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "W", "W"],
+  ["W", "W", "W", "W", "W", "W", "L", "W"],
+  ["W", "W", "W", "W", "W", "W", "L", "L"],
+  ["W", "W", "W", "W", "W", "W", "W", "L"],
+];
+bestBridge(grid); // -> 8
+//O(r * c) time and O(r * c) where r is the num of rows and c is the num of columns
 const bestBridge = (grid) => {
   let mainIsland;
-  for (let row = 0; row < grid.length; row++) { // 0
-    for (let col = 0; col < grid[0].length; col++) { // 0
-      const potentialIsland = dfs(grid, row, col, new Set()); //return all the coordinates of the first island in a set
-      if (potentialIsland.size > 0) {
-        mainIsland = potentialIsland;
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[0].length; col++) {
+      const potenitalLand = exploreIsland(grid, row, col, new Set());
+      if (potenitalLand.size > 0) {
+        mainIsland = potenitalLand;
       }
     }
   }
 
 
-  const bfsVisited = new Set(mainIsland);
+  const visited = new Set(mainIsland);
   const queue = [];
-  for (const startingPosition of mainIsland) {
-    const [ row, col ] = startingPosition.split(',').map(Number);
+  for (const startingPos of mainIsland) {
+    const [ row, col ] = startingPos.split(',').map(Number);
     queue.push([ row, col, 0 ]);
   }
 
 
   while (queue.length) {
-    const [row, col, distance] = queue.shift();
+    const [ row, col, distance ] = queue.shift(); //assume this is O(1) lookup
     const neighbors = [
       [row + 1, col], [row - 1, col], [row, col + 1], [row, col - 1]
     ];
-    for (let [r, c] of neighbors) {
+
+
+    for (let [ r, c ] of neighbors) {
       const pos = r + ',' + c;
-      if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length) {
-        if (!bfsVisited.has(pos)) {
-          bfsVisited.add(pos);
-          if (grid[r][c] === 'L') {
-            return distance; // Return the distance when reaching any part of the second island
-          }
-          queue.push([r, c, distance + 1]);
+      if (isInbounds(grid, r, c)) {
+        if (!visited.has(pos)) {
+          visited.add(pos);
+          if (grid[r][c] === 'L') return distance;
+          // Only push to the queue if position hasn't been visited
+          queue.push([ r, c, distance + 1 ]);
         }
       }
     }
   }
+  // only return in the while loop as we are guarenteed two islands and a path
 };
 
 
-const dfs = (grid, row, col, visited) => {
+const isInbounds = (grid, row, col) => {
   const rowInbounds = row >= 0 && row < grid.length;
   const colInbounds = col >= 0 && col < grid[0].length;
-  if (!rowInbounds || !colInbounds) return visited;
-
-
-  if (grid[row][col] === 'W') return visited;
-  
-  const position = row + ',' + col;
-  if (visited.has(position)) return visited;
-  visited.add(position);
-
-
-  dfs(grid, row + 1, col, visited);
-  dfs(grid, row - 1, col, visited);
-  dfs(grid, row, col + 1 , visited);
-  dfs(grid, row, col - 1, visited);
-
-
-  return visited;
+  return rowInbounds && colInbounds;
 }
 
 
-
-
-module.exports = {
-  bestBridge,
-};
-
+const exploreIsland = (grid, row, col, visited) => {
+  if (!isInbounds(grid, row, col) || grid[row][col] === 'W') return visited;
