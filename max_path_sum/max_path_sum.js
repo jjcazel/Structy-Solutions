@@ -56,55 +56,23 @@ const grid = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 maxPathSum(grid); // -> 82
-//O(r * c) time and O(r * c) space where r = ros and c = columns
 const maxPathSum = (grid, row = 0, col = 0, memo = {}) => {
   const position = row + ',' + col;
   if (position in memo) return memo[position];
+  if (row === grid.length || col === grid[0].length) return 0;
   if (row === grid.length - 1 && col === grid[0].length - 1) return grid[row][col];
-  if (row === grid.length || col === grid[0].length) return -Infinity;
 
 
-  memo[position] = grid[row][col] + Math.max(
-    maxPathSum(grid, row + 1, col, memo), maxPathSum(grid, row, col + 1, memo)
-  );
-  return grid[row][col] + Math.max(
-    maxPathSum(grid, row + 1, col, memo), maxPathSum(grid, row, col + 1, memo)
-  );
+  const downSum = maxPathSum(grid, row + 1, col, memo);
+  const rightSum = maxPathSum(grid, row, col + 1, memo);
+
+
+  memo[position] = grid[row][col] + Math.max(downSum, rightSum);
+  return grid[row][col] + Math.max(downSum, rightSum);
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = {
+  maxPathSum,
+};
 
