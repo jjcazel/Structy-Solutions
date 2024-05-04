@@ -8,6 +8,7 @@ const graph = {
   c: []
 };
 
+
 longestPath(graph); // -> 2
 
 test_01
@@ -23,6 +24,7 @@ const graph = {
   u: []
 };
 
+
 longestPath(graph); // -> 4
 
 test_02
@@ -37,6 +39,7 @@ const graph = {
   y: []
 };
 
+
 longestPath(graph); // -> 2
 
 test_03
@@ -50,6 +53,7 @@ const graph = {
   g: ['h'],
   h: []
 };
+
 
 longestPath(graph); // -> 3
 
@@ -83,5 +87,6 @@ const graph = {
   y: ['z'],
   z: []
 };
+
 
 longestPath(graph); // -> 25
