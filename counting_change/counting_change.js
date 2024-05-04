@@ -19,20 +19,22 @@ countingChange(512, [1, 5, 10, 25]); // -> 20119
 countingChange(1000, [1, 5, 10, 25]); // -> 142511
 countingChange(240, [1, 2, 3, 4, 5, 6, 7, 8, 9]); // -> 1525987916
 // O(a * c) time and O(a * c) space
-const countingChange = (amount, coins) => {
-  const numWays = new Array(amount + 1).fill(0);
-  numWays[0] = 1;
-  
-  for (let coin = 0; coin < coins.length; coin++) {
-    for (let qty = 1; qty <= amount; qty++) {
-      if (coins[coin] <= qty) {
-        numWays[qty] += numWays[qty - coins[coin]];
-      }
-    }
+const countingChange = (amount, coins, i = 0, memo = {}) => {
+  const key = amount + ',' + i;
+  if (key in memo) return memo[key];
+  if (amount === 0) return 1;
+
+
+  let coin = coins[i];
+  let totalNumWays = 0;
+  for (let qty = 0; qty * coin <= amount; qty++) {
+    const remainder = amount - (qty * coin);
+    totalNumWays += countingChange(remainder, coins, i + 1, memo);
   }
 
 
-  return numWays[amount]
+  memo[key] = totalNumWays;
+  return totalNumWays;
 };
 
 
@@ -115,4 +117,3 @@ const countingChange = (amount, coins) => {
 // const countingChange = (amount, coins, i = 0, memo = {}) => {
 //   const key = i + ',' + amount;
 //   if (key in memo) return memo[key]
-//   if (amount === 0) return 1;
