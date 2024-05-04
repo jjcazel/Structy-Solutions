@@ -56,6 +56,7 @@ const grid = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 maxPathSum(grid); // -> 82
+//O(r * c) time and O(r * c) space
 const maxPathSum = (grid, row = 0, col = 0, memo = {}) => {
   const position = row + ',' + col;
   if (position in memo) return memo[position];
