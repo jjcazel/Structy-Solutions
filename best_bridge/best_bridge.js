@@ -61,47 +61,48 @@ const grid = [
   ["W", "W", "W", "W", "W", "W", "W", "L"],
 ];
 bestBridge(grid); // -> 8
-//O(r * c) time and O(r * c) where r is the num of rows and c is the num of columns
+// O(r * c) time and O (r * c) space where r = rows and c = cols
 const bestBridge = (grid) => {
-  let mainIsland;
+  let mainIslandPoints;
   for (let row = 0; row < grid.length; row++) {
     for (let col = 0; col < grid[0].length; col++) {
-      const potenitalLand = exploreIsland(grid, row, col, new Set());
-      if (potenitalLand.size > 0) {
-        mainIsland = potenitalLand;
+      let potentialIsland = traverseIsland(grid, row, col, new Set());
+      if (potentialIsland.size > 0) {
+        mainIslandPoints = potentialIsland;
       }
     }
   }
-
-
-  const visited = new Set(mainIsland);
+  
+  const visited = new Set(mainIslandPoints);
   const queue = [];
-  for (const startingPos of mainIsland) {
+  for (const startingPos of mainIslandPoints) {
     const [ row, col ] = startingPos.split(',').map(Number);
     queue.push([ row, col, 0 ]);
   }
 
 
   while (queue.length) {
-    const [ row, col, distance ] = queue.shift(); //assume this is O(1) lookup
+    const [ row, col, distance ] = queue.shift(); // assume this is O(1)
+
+
     const neighbors = [
-      [row + 1, col], [row - 1, col], [row, col + 1], [row, col - 1]
-    ];
+      [row + 1, col],
+      [row - 1, col],
+      [row, col + 1],
+      [row, col - 1]
+    ]
 
 
-    for (let [ r, c ] of neighbors) {
-      const pos = r + ',' + c;
-      if (isInbounds(grid, r, c)) {
-        if (!visited.has(pos)) {
-          visited.add(pos);
-          if (grid[r][c] === 'L') return distance;
-          // Only push to the queue if position hasn't been visited
-          queue.push([ r, c, distance + 1 ]);
+    for (const [ row, col ] of neighbors) {
+      if (isInbounds(grid, row, col)) {
+        const position = row + ',' + col;
+        if (!visited.has(position)) {
+          if (grid[row][col] === 'L') return distance;
+          queue.push([ row, col, distance + 1 ]);
         }
       }
     }
   }
-  // only return in the while loop as we are guarenteed two islands and a path
 };
 
 
@@ -112,5 +113,26 @@ const isInbounds = (grid, row, col) => {
 }
 
 
-const exploreIsland = (grid, row, col, visited) => {
+const traverseIsland = (grid, row, col, visited) => {
   if (!isInbounds(grid, row, col) || grid[row][col] === 'W') return visited;
+
+
+  const position = row + ',' + col;
+  if (visited.has(position)) return visited;
+  visited.add(position);
+
+
+  traverseIsland(grid, row + 1, col, visited);
+  traverseIsland(grid, row - 1, col, visited);
+  traverseIsland(grid, row, col + 1, visited);
+  traverseIsland(grid, row, col - 1, visited);
+
+
+  return visited;
+}
+
+
+module.exports = {
+  bestBridge,
+};
+
