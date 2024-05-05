@@ -29,71 +29,20 @@ const nums = [
   42
 ];
 nonAdjacentSum(nums); // -> 1465
-// O(n) time and O(n) space
+//O(n) time and O(n) space where n is the length of the nums array
 const nonAdjacentSum = (nums, i = 0, memo = {}) => {
-  if (nums.length <= i) return 0;
-
-
+  if (i >= nums.length) return 0;
   if (i in memo) return memo[i];
-
-
   const includeFirstNum = nums[i] + nonAdjacentSum(nums, i + 2, memo);
   const excludeFirstNum = nonAdjacentSum(nums, i + 1, memo);
 
 
   memo[i] = Math.max(includeFirstNum, excludeFirstNum)
-  return memo[i];
+  return Math.max(includeFirstNum, excludeFirstNum);
 };
 
 
+module.exports = {
+  nonAdjacentSum,
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const nonAdjacentSum = (nums, i = 0, memo = {}) => {
-//   if (i in memo) return memo[i]
-//   if (i >= nums.length) return 0;
-  
-//   memo[i] = Math.max(nonAdjacentSum(nums, i + 1, memo), nums[i] + nonAdjacentSum(nums, i + 2, memo));
