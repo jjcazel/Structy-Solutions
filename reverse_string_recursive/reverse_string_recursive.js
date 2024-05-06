@@ -6,9 +6,9 @@ reverseString("stopwatch"); // -> "hctawpots"
 reverseString(""); // -> ""
 
 
-const reverseString = (s) => {
-  if (s.length === 0) return '';
-  return reverseString(s.slice(1)) + s[0];
+const reverseString = (s, i = 0) => {
+  if (s.length === i) return '';
+  return reverseString(s, i + 1) + s[i];
 };
 
 
