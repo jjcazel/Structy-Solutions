@@ -1,37 +1,42 @@
-//O(n^2) time and O(n^2) space where n = num of rows and columns
+knightAttack(8, 1, 1, 2, 2); // -> 2
+knightAttack(8, 1, 1, 2, 3); // -> 1
+knightAttack(8, 0, 3, 4, 2); // -> 3
+knightAttack(8, 0, 3, 5, 2); // -> 4
+knightAttack(24, 4, 7, 19, 20); // -> 10
+knightAttack(100, 21, 10, 0, 0); // -> 11
+knightAttack(3, 0, 0, 1, 2); // -> 1
+knightAttack(3, 0, 0, 1, 1); // -> null
 const knightAttack = (n, kr, kc, pr, pc) => {
   const visited = new Set();
   const queue = [ [kr, kc, 0] ];
 
 
   while (queue.length) {
-    const [ kRow, kCol, numOfMoves ] = queue.shift(); // assume this is O(1)
-    if (kRow === pr && kCol === pc) return numOfMoves;
+    const [ row, col, distance ] = queue.shift(); //assume its O(1)
+    if (row === pr && col === pc) return distance;
 
 
-    const position = kRow + ',' + kCol;
+    const position = row + "," + col;
     if (visited.has(position)) continue;
     visited.add(position);
 
 
     const knightDeltas = [
-      [kRow + 2, kCol + 1], 
-      [kRow + 2, kCol - 1], 
-      [kRow - 2, kCol + 1], 
-      [kRow - 2, kCol - 1], 
-      [kRow + 1, kCol + 2], 
-      [kRow - 1, kCol + 2], 
-      [kRow + 1, kCol - 2], 
-      [kRow - 1, kCol - 2]
+      [row + 2, col + 1], 
+      [row + 2, col - 1], 
+      [row - 2, col + 1], 
+      [row - 2, col - 1], 
+      [row + 1, col + 2], 
+      [row - 1, col + 2], 
+      [row + 1, col - 2], 
+      [row - 1, col - 2]
     ];
 
 
-    for (const neighbor of knightDeltas) {
-      const [row, col] = neighbor;
-      const rowInbounds = row >= 0 && row < n;
-      const colInbounds = col >= 0 && col < n;
-      if (!rowInbounds || !colInbounds) continue;
-      queue.push([ row, col, numOfMoves + 1 ]);
+    for (const [ row, col ] of knightDeltas) {
+      if (row >= 0 && row < n && col >= 0 && col < n) {
+        queue.push([ row, col, distance + 1 ]);
+      }
     }
   }
 
