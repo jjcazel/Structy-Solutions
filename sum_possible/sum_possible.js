@@ -9,15 +9,14 @@ sumPossible(271, [10, 8, 265, 24]); // -> false
 sumPossible(2017, [4, 2, 10]); // -> false
 sumPossible(13, [3, 5]); // -> true
 sumPossible(10, [4, 5, 7]); // -> true
-//O(n * a) time and O(a) space where n is the length of numbers and a is the amount
 const sumPossible = (amount, numbers, memo = {}) => {
+  if (amount in memo) return memo[amount];
   if (amount === 0) return true;
   if (amount < 0) return false;
-  if (amount in memo) return memo[amount];
 
 
-  for (const num of numbers) {
-    if (sumPossible(amount - num, numbers, memo)) {
+  for (let num of numbers) {
+    if (sumPossible(amount - num, numbers, memo) === true) {
       memo[amount] = true;
       return true;
     }
