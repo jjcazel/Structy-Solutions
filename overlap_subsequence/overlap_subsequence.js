@@ -6,27 +6,25 @@ overlapSubsequence(
   "mumblecorebeardleggingsauthenticunicorn",
   "succulentspughumblemeditationlocavore"
 ); // -> 15
-//O(n * m) time and O(n * m) space where n is the length of str1 and m is the length of str2
-const overlapSubsequence = (str1, str2, strOnePointer = 0, strTwoPointer = 0, memo = {}) => {
-  const key = strOnePointer + ',' + strTwoPointer;
+//O(nm) time and O(nm) space where m is the length of str1 and n is the length of str2
+const overlapSubsequence = (str1, str2, str1Pointer = 0, str2Pointer = 0, memo = {}) => {
+  const key = str1Pointer + ',' + str2Pointer;
   if (key in memo) return memo[key];
-  if (strOnePointer === str1.length || strTwoPointer === str2.length) return 0;
+  if (str1Pointer === str1.length || str2Pointer === str2.length) return 0;
 
 
-  if (str1[strOnePointer] === str2[strTwoPointer]) {
-    memo[key] = 1 + overlapSubsequence(str1, str2, strOnePointer + 1, strTwoPointer + 1, memo);
+  if (str1[str1Pointer] === str2[str2Pointer]) {
+    memo[key] = 1 + overlapSubsequence(str1, str2, str1Pointer + 1, str2Pointer + 1, memo);
   } else {
-   memo[key] = Math.max(
-      overlapSubsequence(str1, str2, strOnePointer + 1, strTwoPointer, memo),
-      overlapSubsequence(str1, str2, strOnePointer, strTwoPointer + 1, memo)
-    );
+    memo[key] = Math.max(
+      overlapSubsequence(str1, str2, str1Pointer + 1, str2Pointer, memo),
+      overlapSubsequence(str1, str2, str1Pointer, str2Pointer + 1, memo),
+    )
   }
 
 
   return memo[key];
 };
-
-
 
 
 module.exports = {
