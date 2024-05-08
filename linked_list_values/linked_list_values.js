@@ -40,43 +40,20 @@ linkedListValues(null); // -> [ ]
 // }
 
 
-// O(n) time and O(n) space where n is the number of nodes
+//O(n) time and O(n) space
 const linkedListValues = (head) => {
-  const nodeValues = [];
-  _linkedListValues(head, nodeValues);
-  return nodeValues;
+  const listVals = [];
+  let current = head;
+
+
+  while (current) {
+    listVals.push(current.val);
+    current = current.next;
+  }
+
+
+  return listVals;
 };
-
-
-function _linkedListValues(head, nodeValues) {
-  if (head === null) return;
-  nodeValues.push(head.val);
-  _linkedListValues(head.next, nodeValues);
-}
-
-
-// const linkedListValues = (head) => {
-//   const nodeValues = [];
-//   let currentNode = head;
-  
-//   while (currentNode !== null) {
-//     nodeValues.push(currentNode.val);
-//     currentNode = currentNode.next;
-//   }
-  
-//   return nodeValues;
-// };
-
-
-
-
-// creating an output array
-// loop through the linked list until we get to the null node
-// push each value to the output array
-// make sure to set the current head to the next node
-// return the array once the loop terminates
-
-
 
 
 module.exports = {
