@@ -6,30 +6,31 @@ quickestConcat('simchacindy', ['sim', 'simcha', 'acindy']); // -> -1
 quickestConcat('uuuuuu', ['u', 'uu', 'uuu', 'uuuu']); // -> 2
 quickestConcat('rongbetty', ['wrong', 'bet']); // -> -1
 quickestConcat('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', ['u', 'uu', 'uuu', 'uuuu', 'uuuuu']); // -> 7
-//O(n * s) time and (s) space where s is the string length and n is the length of the words array
+//O(sw) time and O(s) space where s is the length of the string and w is the length of words
 const quickestConcat = (s, words) => {
-  const answer = quickestConcatHelper(s, words);
+  const answer = quickestConcatHelper(s, words, {});
   return answer === Infinity ? -1 : answer;
-}
+};
 
 
-const quickestConcatHelper = (s, words, memo = {}) => {
+const quickestConcatHelper = (s, words, memo) => {
   if (s in memo) return memo[s];
-  if (s === '') return 0;
-  
+  if (s.length === 0) return 0;
+
+
   let minWords = Infinity;
   for (const word of words) {
     if (s.startsWith(word)) {
       const suffix = s.slice(word.length);
       let currCount = 1 + quickestConcatHelper(suffix, words, memo);
-      minWords = Math.min(minWords, currCount);
+      minWords = Math.min(currCount, minWords);
     }
   }
 
 
   memo[s] = minWords;
   return minWords;
-};
+}
 
 
 module.exports = {
