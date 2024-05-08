@@ -43,17 +43,16 @@ linkedListValues(null); // -> [ ]
 //O(n) time and O(n) space
 const linkedListValues = (head) => {
   const listVals = [];
-  let current = head;
-
-
-  while (current) {
-    listVals.push(current.val);
-    current = current.next;
-  }
-
-
+  linkedListValuesHelper(head, listVals);
   return listVals;
 };
+
+
+const linkedListValuesHelper = (head, listVals) => {
+  if (!head) return [];
+  listVals.push(head.val);
+  linkedListValuesHelper(head.next, listVals);
+}
 
 
 module.exports = {
