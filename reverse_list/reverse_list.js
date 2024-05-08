@@ -44,19 +44,13 @@ reverseList(p); // p
 
 
 //O(n) time and O(1) space
-const reverseList = (head) => {
-  let prev = null;
-  let current = head;
-  
-  while (current) {
-    let tempNext = current.next; //B
-    current.next = prev;
-    prev = current;
-    current = tempNext;
-  }
-
-
-  return prev;
+const reverseList = (head, prev = null) => {
+  if (!head) return prev;
+  let tempNext = head.next;
+  head.next = prev;
+  prev = head;
+  head = tempNext;
+  return reverseList(head, prev);
 };
 
 
