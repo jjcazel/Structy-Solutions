@@ -9,19 +9,15 @@ for (let i = 0; i < 50000; i += 1) {
   b.push(i);
 }
 intersection(a, b) // -> [0,1,2,3,..., 49999]
-//O(n + m) time and O(n + m) space where n is the array a and m is the length of array b
+//O(n + m) time and O(min(n, m)) space where n is the array a and m is the length of array b
 const intersection = (a, b) => {
-  const arrayANums = {};
+  const arrayASet = new Set(a);
   const intersectingNums = [];
-  
-  for (const num of a) {
-    arrayANums[num] = true;
-  }
 
 
-  for (const num2 of b) {
-    if (num2 in arrayANums) {
-      intersectingNums.push(num2);
+  for (const num of b) {
+    if (arrayASet.has(num)) {
+      intersectingNums.push(num);
     }
   }
 
