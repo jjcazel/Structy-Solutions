@@ -11,17 +11,12 @@ const pairSum = (numbers, targetSum) => {
 
   for (let idx = 0; idx < numbers.length; idx++) {
     const currNum = numbers[idx];
-    pairHash[currNum] = idx;
-  }
-
-
-  for (let idx2 = 0; idx2 < numbers.length; idx2++) {
-    const currNum = numbers[idx2];
     const diff = targetSum - currNum;
-    if (diff in pairHash && pairHash[diff] !== idx2) {
-      return [ idx2, pairHash[diff] ];
+    if (diff in pairHash) {
+      return [ idx, pairHash[diff] ];
     }
-  }
+    pairHash[currNum] = idx;
+  }  
 };
 
 
