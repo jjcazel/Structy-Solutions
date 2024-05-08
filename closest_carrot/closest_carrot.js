@@ -1,19 +1,108 @@
-//O(r * c) time and (r * c) space where r is the num of rows and c is the num of cols
+const grid = [
+  ['O', 'O', 'O', 'O', 'O'],
+  ['O', 'X', 'O', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['O', 'X', 'C', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['C', 'O', 'O', 'O', 'O'],
+];
+
+
+closestCarrot(grid, 1, 2); // -> 4
+const grid = [
+  ['O', 'O', 'O', 'O', 'O'],
+  ['O', 'X', 'O', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['O', 'X', 'C', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['C', 'O', 'O', 'O', 'O'],
+];
+
+
+closestCarrot(grid, 0, 0); // -> 5
+const grid = [
+  ['O', 'O', 'X', 'X', 'X'],
+  ['O', 'X', 'X', 'X', 'C'],
+  ['O', 'X', 'O', 'X', 'X'],
+  ['O', 'O', 'O', 'O', 'O'],
+  ['O', 'X', 'X', 'X', 'X'],
+  ['O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'C', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O'],
+];
+
+
+closestCarrot(grid, 3, 4); // -> 9
+const grid = [
+  ['O', 'O', 'X', 'O', 'O'],
+  ['O', 'X', 'X', 'X', 'O'],
+  ['O', 'X', 'C', 'C', 'O'],
+];
+
+
+closestCarrot(grid, 1, 4); // -> 2
+const grid = [
+  ['O', 'O', 'X', 'O', 'O'],
+  ['O', 'X', 'X', 'X', 'O'],
+  ['O', 'X', 'C', 'C', 'O'],
+];
+
+
+closestCarrot(grid, 2, 0); // -> -1
+const grid = [
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'X', 'X'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'X', 'C'],
+];
+
+
+closestCarrot(grid, 0, 0); // -> -1
+const grid = [
+  ['O', 'O', 'X', 'C', 'O'],
+  ['O', 'X', 'X', 'X', 'O'],
+  ['C', 'X', 'O', 'O', 'O'],
+];
+
+
+closestCarrot(grid, 2, 2); // -> 5
+//O(n) time and O(n) space
 const closestCarrot = (grid, startRow, startCol) => {
   const visited = new Set();
   const queue = [ [startRow, startCol, 0] ];
-  
+
+
   while (queue.length) {
-    const [ row, col, distance ] = queue.shift(); // assume this is O(1) time complexity
-    const position = row + ',' + col; 
-    if (visited.has(position)) continue;
-    visited.add(position);
-    if (grid[row][col] === 'X') continue;
+    const [ row, col, distance ] = queue.shift(); // assume O(1)
+    
     if (grid[row][col] === 'C') return distance;
-    if (row > 0) queue.push([ row - 1, col, distance + 1 ]);
-    if (row < grid.length - 1) queue.push([ row + 1, col, distance + 1 ]);
-    if (col > 0) queue.push([ row, col - 1, distance + 1 ]);
-    if (col < grid[0].length - 1) queue.push([ row, col + 1, distance + 1 ]);	
+    
+    const position = row + ',' + col;
+    if (visited.has(position) || grid[row][col] === 'X') continue;
+    visited.add(position);
+
+
+    const neighbors = [
+      [row + 1, col],
+      [row - 1, col],
+      [row, col + 1],
+      [row, col - 1]
+    ]
+
+
+    for (const [ row, col ] of neighbors) {
+      if (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length) {
+        queue.push([ row, col, distance + 1 ]);
+      }
+    }
   }
 
 
@@ -21,6 +110,17 @@ const closestCarrot = (grid, startRow, startCol) => {
 };
 
 
+const grid = [
+  ['O', 'O', 'O', 'O', 'O'],
+  ['O', 'X', 'O', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['O', 'X', 'C', 'O', 'O'],
+  ['O', 'X', 'X', 'O', 'O'],
+  ['C', 'O', 'O', 'O', 'O'],
+];
+
+
+closestCarrot(grid, 1, 2);
 
 
 module.exports = {
