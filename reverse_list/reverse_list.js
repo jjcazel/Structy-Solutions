@@ -1,7 +1,3 @@
-Write a function, reverseList, that takes in the head of a linked list as an argument. The function should reverse the order of the nodes in the linked list in-place and return the new head of the reversed linked list.
-
-test_00
-
 const a = new Node("a");
 const b = new Node("b");
 const c = new Node("c");
@@ -21,9 +17,6 @@ e.next = f;
 
 
 reverseList(a); // f -> e -> d -> c -> b -> a
-
-test_01
-
 const x = new Node("x");
 const y = new Node("y");
 
@@ -35,9 +28,6 @@ x.next = y;
 
 
 reverseList(x); // y -> x
-
-test_02
-
 const p = new Node("p");
 
 
@@ -45,3 +35,32 @@ const p = new Node("p");
 
 
 reverseList(p); // p
+// class Node {
+//   constructor(val) {
+//     this.val = val;
+//     this.next = null;
+//   }
+// }
+
+
+//O(n) time and O(1) space
+const reverseList = (head) => {
+  let prev = null;
+  let current = head;
+  
+  while (current) {
+    let tempNext = current.next; //B
+    current.next = prev;
+    prev = current;
+    current = tempNext;
+  }
+
+
+  return prev;
+};
+
+
+module.exports = {
+  reverseList,
+};
+
