@@ -98,9 +98,12 @@ const closestCarrot = (grid, startRow, startCol) => {
     ]
 
 
-    for (const [ row, col ] of neighbors) {
-      if (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length) {
-        queue.push([ row, col, distance + 1 ]);
+    for (const [ neighborRow, neighborCol ] of neighbors) {
+      if (
+        neighborRow >= 0 && neighborRow < grid.length && 
+        neighborCol >= 0 && neighborCol < grid[0].length
+      ) {
+        queue.push([ neighborRow, neighborCol, distance + 1 ]);
       }
     }
   }
