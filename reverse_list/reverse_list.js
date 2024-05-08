@@ -7,7 +7,7 @@
 // }
 
 
-//O(n) time and O(1) space
+//O(n) time and O(n) space
 const reverseList = (head, prev = null) => {
   if (!head) return prev;
   let tempNext = head.next;
