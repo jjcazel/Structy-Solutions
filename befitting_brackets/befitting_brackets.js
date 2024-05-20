@@ -7,27 +7,26 @@ befittingBrackets('[]{}()[]'); // -> true
 befittingBrackets(']{}'); // -> false
 befittingBrackets(''); // -> true
 befittingBrackets('{[(}])'); // -> false
-//O(n) time and O(n) space
 const befittingBrackets = (str) => {
-  const bracketPairs = {'}': '{', ')': '(', ']': '['};
-  const stack = [];
-  let i = 0;
+  const stack = []; //[ (,  ]
+  const key = {
+    '{': '}',
+    '[': ']',
+    '(': ')'
+  };
 
 
-  while (i < str.length) {
-    const bracket = str[i];
-    if (bracket === '(' || bracket === '{' || bracket === '[' ) {
+  for (const bracket of str) {
+    if (bracket in key) {
       stack.push(bracket);
+    } else {
+      const lastOpeningBracket = stack.pop();
+      if (key[lastOpeningBracket] !== bracket) return false;
     }
-    if (bracket === ']' || bracket === '}' || bracket === ')') {
-      const lastBracket = stack.pop();
-      if (lastBracket !== bracketPairs[bracket]) return false;
-    }
-    i++;
   }
 
 
-  return !stack.length;
+  return stack.length === 0;
 };
 
 
