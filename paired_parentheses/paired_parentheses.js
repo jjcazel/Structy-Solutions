@@ -7,26 +7,23 @@ pairedParentheses("(())(water)()"); // -> true
 pairedParentheses("(())(water()()"); // -> false
 pairedParentheses(""); // -> true
 pairedParentheses("))()"); // -> false
-//O(n) time and O(n) space
+//O(n) time and O(1) space
 const pairedParentheses = (str) => {
-  const stack = []; //[ ( ]
+  let count = 0;
 
 
   for (const char of str) {
     if (char === '(') {
-      stack.push(char);
+      count++;
     }
     if (char === ')') {
-      if (stack[stack.length - 1] === '(') {
-        stack.pop();
-      } else {
-        return false;
-      }
+      count--;
     }
+    if (count < 0 ) return false;
   }
 
 
-  return !stack.length;
+  return count === 0;
 };
 
 
