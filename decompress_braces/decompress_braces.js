@@ -14,24 +14,24 @@ decompressBraces("2{l2{if}azu}l");
 // -> lififazulififazul 
 decompressBraces("3{al4{ec}2{icia}}"); 
 // -> alececececiciaiciaalececececiciaiciaalececececiciaicia 
-//O((9^m) * s) time and O((9^m) * s) space where s is the length of the string and m is the count of brace pairs
 const decompressBraces = (s) => {
   const nums = '123456789';
   const stack = [];
-  
+
+
   for (const char of s) {
     if (nums.includes(char)) {
       stack.push(Number(char));
     } else {
       if (char === '}') {
-        let newString = '';
+        let segment = '';
         while (typeof stack[stack.length - 1] !== 'number') {
-          const currChar = stack.pop(); // 'q'
-          newString = currChar + newString;
+          const currChar = stack.pop();
+          segment = currChar + segment;
         }
         const num = stack.pop();
-        stack.push(repeat(newString, num));
-      } else if (char !== '{') {
+        stack.push(repeat(segment, num));
+      } else if (char !=='{') {
         stack.push(char);
       }
     }
@@ -42,19 +42,17 @@ const decompressBraces = (s) => {
 };
 
 
-const repeat = (string, num) => {
-  let result = '';
+const repeat = (str, num) => {
+  const newString = [];
 
 
   for (let i = 0; i < num; i++) {
-    result += string;
+    newString.push(str);
   }
 
 
-  return result;
+  return newString.join('');
 }
-
-
 
 
 module.exports = {
