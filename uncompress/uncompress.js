@@ -1,38 +1,33 @@
-<number><char>
-
-
-for example, '2c' or '3a'.
-uncompress("2c3a1t"); // -> 'ccaaat'
-uncompress("4s2b"); // -> 'ssssbb'
-uncompress("2p1o5p"); // -> 'ppoppppp'
-uncompress("3n12e2z"); // -> 'nnneeeeeeeeeeeezz'
-uncompress("127y"); // ->'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
-//O(nm) time and O(nm) space n is the number of groups and m is the max num for that group
+// O(n) time and O(n) space
 const uncompress = (s) => {
-  const output = [];// []
-  const alpha = 'abcdefghijklmnopqrstuvwxyz';
-  let i = 0;
-  let j = 0;
+  const decompressedOutput = []; // ['n', 'n', 'n',]
+  let currNum = []; // ['1', '2']
   
-  while (j < s.length) {
-    if (alpha.includes(s[j])) {
-      const maxNum = Number(s.slice(i, j));
-      let currNum = 0;
-
-
-      while (currNum < maxNum) {
-        output.push(s[j]);
-        currNum++;
-      }
-      j++;
-      i = j;
+  for (let i = 0; i < s.length; i++) {// i = 4
+    const currChar = s[i]; // 'e'
+    if (!isNaN(currChar)) {
+      currNum.push(currChar);
     } else {
-      j++;
+      let numOfChars = Number(currNum.join(''));// 1
+      while (numOfChars > 0) {
+        decompressedOutput.push(currChar);
+        numOfChars--;
+      }
+      currNum = [];
     }
   }
-  
-  return output.join('');
+
+
+  return decompressedOutput.join('');
 };
+
+
+// loop through the string
+  // if number keeping looping to get every digit of that number
+  // if letter, store the current number and run a while loop for that num of times
+  // remember to reduce the num on each iteration
+  // on each iteration push the current letter into the output array until the loop finishes
+  // when the main for loop finishes we're at the end of the string and can return our uncompressed output.
 
 
 module.exports = {
