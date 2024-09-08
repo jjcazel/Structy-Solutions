@@ -1,33 +1,29 @@
-// O(n) time and O(n) space
+// O(nm) time and O(nm) space where n is the num of sets and m is the length of the set
 const uncompress = (s) => {
-  const decompressedOutput = []; // ['n', 'n', 'n',]
-  let currNum = []; // ['1', '2']
-  
-  for (let i = 0; i < s.length; i++) {// i = 4
-    const currChar = s[i]; // 'e'
-    if (!isNaN(currChar)) {
-      currNum.push(currChar);
-    } else {
-      let numOfChars = Number(currNum.join(''));// 1
-      while (numOfChars > 0) {
-        decompressedOutput.push(currChar);
-        numOfChars--;
+  const nums = '123456789';
+  const decompressedStr = [];
+  let i = 0; // 2
+  let j = 0; // 4
+
+
+  while (j < s.length) {
+    const currChar = s[j];
+    if (!nums.includes(currChar)) {
+      let currNum = s.slice(i, j);
+      while (currNum > 0) {
+        decompressedStr.push(currChar);
+        currNum--;
       }
-      currNum = [];
+      j++;
+      i = j;
+    } else {
+      j++;
     }
   }
 
 
-  return decompressedOutput.join('');
+  return decompressedStr.join('')
 };
-
-
-// loop through the string
-  // if number keeping looping to get every digit of that number
-  // if letter, store the current number and run a while loop for that num of times
-  // remember to reduce the num on each iteration
-  // on each iteration push the current letter into the output array until the loop finishes
-  // when the main for loop finishes we're at the end of the string and can return our uncompressed output.
 
 
 module.exports = {
