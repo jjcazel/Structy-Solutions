@@ -5,19 +5,12 @@
 //   }
 // }
 
-//O(n) time and O(1) space
-const reverseList = (head) => {
-  let current = head;
-  let prev = null;
-
-  while (current) {
-    let oldNext = current.next;
-    current.next = prev;
-    prev = current;
-    current = oldNext;
-  }
-
-  return prev;
+//O(n) time and O(n) space
+const reverseList = (head, prev = null) => {
+  let (head === null) return prev;
+  let oldNext = head.next;
+  head.next = prev;
+  return reverseList(oldNext, head);
 };
 
 module.exports = {
