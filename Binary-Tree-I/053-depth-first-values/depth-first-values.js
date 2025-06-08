@@ -6,19 +6,20 @@
 //   }
 // }
 
-//O(n) time and O(n) space
-const depthFirstValues = (root, array = []) => {
+const depthFirstValues = (root) => {
   if (!root) return [];
-  array.push(root.val);
-  depthFirstValues(root.left, array);
-  depthFirstValues(root.right, array);
+  const stack = [ root ];
+  const dfsVals = [];
   
-  return array;
-};
+  while (stack.length) {
+    const currNode = stack.pop();
+    dfsVals.push(currNode.val);
+    if (currNode.right) stack.push(currNode.right);
+    if (currNode.left) stack.push(currNode.left);
+  }
 
-// const dfsRecursiveHelper = (root, array) => {
-//   
-// }
+  return dfsVals;
+};
 
 module.exports = {
   depthFirstValues,
