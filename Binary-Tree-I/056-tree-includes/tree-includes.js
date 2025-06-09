@@ -7,16 +7,9 @@
 // }
 
 const treeIncludes = (root, target) => {
-  const stack = [ root ];
-
-  while (stack.length) {
-    const currNode = stack.pop();
-    if (currNode.val === target) return true;
-    if (currNode.left) stack.push(currNode.left);
-    if (currNode.right) stack.push(currNode.right);
-  }
-
-  return false;
+  if (!root) return false;
+  if (root.val === target) return true;
+  return treeIncludes(root.left, target) || treeIncludes(root.right, target);
 };
 
 module.exports = {
