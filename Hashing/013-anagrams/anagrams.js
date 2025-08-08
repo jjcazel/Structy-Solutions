@@ -1,4 +1,4 @@
-// O(n) time and O(n) space
+// O(n + m) time and O(n + m) space
 const anagrams = (s1, s2) => {
   if (s1.length !== s2.length) return false;
   
