@@ -1,4 +1,4 @@
-// O(n) time and O(n) space
+// O(n + m) time and O(n) space
 const intersection = (a, b) => {
   const prevElements = {};
   const dups = [];
