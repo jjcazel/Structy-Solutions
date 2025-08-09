@@ -1,18 +1,17 @@
-// O(n + m) time and O(n) space
+// O(n) time and O(n) space
 const intersection = (a, b) => {
-  const prevElements = {};
-  const dups = [];
-  for (const elem of a) {
-    prevElements[elem] = true;
+  const hashTable = {};
+  const commonEles = [];
+  for (const num of a) {
+    hashTable[num] = true;
   }
-
-  for (const elem of b) {
-    if (elem in prevElements) {
-      dups.push(elem);
+  for (const num of b) {
+    if (hashTable[num]) {
+      commonEles.push(num);
     }
   }
 
-  return dups;
+  return commonEles;
 };
 
 module.exports = {
