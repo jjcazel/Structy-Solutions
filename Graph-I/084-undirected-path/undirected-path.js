@@ -1,20 +1,19 @@
 // O(e) time and O(n) space where e is the number of edges and n is the number of nodes on the stack
 const undirectedPath = (edges, nodeA, nodeB) => {
   const graph = makeGraph(edges); 
-  const stack = [nodeA];
-  const visited = new Set();
-
-  while (stack.length) {
-    const currNode = stack.pop(); // m
-    if (visited.has(currNode)) continue;
-    visited.add(currNode);
-    if (currNode === nodeB) return true;
-    for (const neighbor of graph[currNode]) {
-      stack.push(neighbor);
-    }
-  }
-  return false;
+  return hasPath(graph, nodeA, nodeB, new Set());
 };
+
+function hasPath(graph, src, dst, visited) {
+  if (src === dst) return true;
+  if (visited.has(src)) return false;
+  visited.add(src);
+  for (const neighbor of graph[src]) {
+    if (hasPath(graph, neighbor, dst, visited)) return true;
+  }
+
+  return false;
+}
 
 function makeGraph(edges) {
   const graph = {};
