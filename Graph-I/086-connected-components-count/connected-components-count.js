@@ -1,35 +1,34 @@
 // O(e) time and O(n) where e is the number of edges
 const connectedComponentsCount = (graph) => {
-  let count = 0; // 2
+  let count = 0;
   const visited = new Set();
-  for (let node in graph) { // 2
-    console.log('visited', visited);
-    if (countComponent(graph, visited, node)) count++;
+
+  for (let node in graph) {
+    if (!visited.has(node)) {
+      explore(graph, node, visited);
+      count++;
+    }
   }
 
   return count;
 };
-// visited = [ 0, 5, 8, 1, 2, 4, 3]
-function countComponent(graph, visited, node) {
-  if (visited.has(String(node))) return false;
-  visited.add(String(node));
 
-  for (let neighbor of graph[node]) {
-    countComponent(graph, visited, neighbor)
+function explore(graph, start, visited) {
+  const stack = [start];
+
+  while (stack.length) {
+    const node = stack.pop();
+
+    if (visited.has(node)) continue;
+    visited.add(node);
+
+    for (let neighbor of graph[node]) {
+      if (!visited.has(neighbor)) {
+        stack.push(neighbor);
+      }
+    }
   }
-
-  return true;
 }
-
-connectedComponentsCount({
-  0: [8, 1, 5],
-  1: [0],
-  5: [0, 8],
-  8: [0, 5],
-  2: [3, 4],
-  3: [2, 4],
-  4: [3, 2]
-});
 
 module.exports = {
   connectedComponentsCount,
