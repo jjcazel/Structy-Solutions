@@ -1,26 +1,25 @@
-// O(e) time and O(n) space where e is the edges
+// O(e) time and O(n) space e = edges and n = number of nodes stored
 const largestComponent = (graph) => {
-  let maxSize = -Infinity;
+  let maxCompnentSize = 0;
   const visited = new Set();
-
-  for (let node in graph) {
-    const currComponentSize = componentSize(graph, node, visited);
-    if ( currComponentSize > maxSize) maxSize = currComponentSize;
+  for (let node in graph) { // 0
+    const currSize = countComponent(node, graph, visited);
+    if (currSize > maxCompnentSize) maxCompnentSize = currSize;
   }
 
-  return maxSize;
+  return maxCompnentSize;
 };
+// visited = {0, }
+function countComponent(node, graph, visited) {
+  if (visited.has(node)) return 0;
+  visited.add(node);
 
-function componentSize(graph, node, visited) {
-  if (visited.has(String(node))) return 0;
-  visited.add(String(node));
-
-  let size = 1;
+  let count = 1; // 1
   for (let neighbor of graph[node]) {
-    size += componentSize(graph, neighbor, visited);
+    count += countComponent(neighbor, graph, visited);
   }
 
-  return size;
+  return count;
 }
 
 module.exports = {
