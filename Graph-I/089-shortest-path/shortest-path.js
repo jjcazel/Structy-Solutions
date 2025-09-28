@@ -1,16 +1,16 @@
-// O(e) time and O(e) space where e is edges and n is nodes
+// O(e) time and O(n) space where e is num of edges and n
 const shortestPath = (edges, nodeA, nodeB) => {
   const graph = buildGraph(edges);
-  const visited = new Set([nodeA]);
-  const queue = [ [nodeA, 0] ]; // [ x,  ]
-  while(queue.length) {
-    const [ currNode, numEdges ] = queue.shift(); // v
-    
-    if (currNode === nodeB) return numEdges;
+  const visited = new Set(); // {'w', 'v'}
+  const queue = [[ nodeA, 0 ]]; // [ ['x', 1], ['z', 2] ]
+
+  while (queue.length > 0) {
+    const [ currNode, edgeCount ] = queue.shift();
+    if (visited.has(currNode)) continue;
+    visited.add(currNode);
+    if (currNode === nodeB) return edgeCount;
     for (let neighbor of graph[currNode]) {
-      if (visited.has(String(neighbor))) continue;
-      visited.add(String(neighbor));
-      queue.push([neighbor , numEdges + 1]);
+      queue.push([neighbor, edgeCount + 1]);
     }
   }
 
@@ -19,25 +19,23 @@ const shortestPath = (edges, nodeA, nodeB) => {
 
 function buildGraph(edges) {
   const graph = {};
-  for (const [ nodeA, nodeB ] of edges) {
+  for (let [ nodeA, nodeB ] of edges) {
     if (!(nodeA in graph)) graph[nodeA] = [];
     if (!(nodeB in graph)) graph[nodeB] = [];
     graph[nodeA].push(nodeB);
-    graph[nodeB].push(nodeA);
+    graph[nodeB].push(nodeA)
   }
 
   return graph;
 }
 
-const edges = [
-  ['w', 'x'],
-  ['x', 'y'],
-  ['z', 'y'],
-  ['z', 'v'],
-  ['w', 'v']
-];
-
-console.log(shortestPath(edges, 'w', 'z'))
+// { 
+//   w: [ 'x', 'v' ], 
+//   x: [ 'w', 'y' ], 
+//   y: [ 'x', 'z' ], 
+//   z: [ 'y', 'v' ], 
+//   v: [ 'z', 'w' ] 
+// } 
 
 module.exports = {
   shortestPath,
