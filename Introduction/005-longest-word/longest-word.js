@@ -1,11 +1,9 @@
-// O(n) space and O(1) time
+// O(n) time and O(n) space where n is the length of the sentence
 const longestWord = (sentence) => {
-  const sentenceArray = sentence.split(' ');
+  const words = sentence.split(' ');
   let maxWord = '';
-  for (let word of sentenceArray) {
-    if (word.length >= maxWord.length) {
-      maxWord = word;
-    }
+  for (let word of words) {
+    if (word.length >= maxWord.length) maxWord = word;
   }
 
   return maxWord;
