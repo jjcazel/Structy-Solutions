@@ -1,4 +1,4 @@
-// O(n) time and O(n) space
+// O(n) time and O(n) space where n is input num
 const fizzBuzz = (n) => {
   const fizzBuzzArr = [];
   for (let num = 1; num <= n; num++) {
@@ -12,7 +12,7 @@ const fizzBuzz = (n) => {
       fizzBuzzArr.push(num);
     }
   }
-  
+
   return fizzBuzzArr;
 };
 
