@@ -1,14 +1,13 @@
-// O(n^2) time and O(n) space
+//O(n^2) time and O(n) space where n is the length of elements
 const pairs = (elements) => {
-  const pairs = [];
+  const allPairs = [];
   for (let i = 0; i < elements.length; i++) {
-    for (let j = i + 1; < elements.length; j++) {
-      const currPair = [elements[i], elements[j]];
-      pairs.push(currPair);
+    for (let j = i + 1; j < elements.length; j++) {
+      allPairs.push([elements[i], elements[j]]);
     }
   }
 
-  return pairs;
+  return allPairs;
 };
 
 module.exports = {
