@@ -5,16 +5,11 @@
 //   }
 // }
 
-//O(n) time and O(1) space
+//O(n) time and O(n) space
 const linkedListFind = (head, target) => {
-  let current = head;
-
-  while (current !== null) {
-    if (current.val === target) return true;
-    current = current.next;
-  }
-
-  return false;
+  if (head === null) return false;
+  if (head.val === target) return true;
+  return linkedListFind(head.next, target);
 };
 
 module.exports = {
