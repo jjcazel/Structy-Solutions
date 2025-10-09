@@ -5,27 +5,15 @@
 //   }
 // }
 
-// O(n) time and O(1) space where n is number of nodes
+// O(min(m, n) time and O(n) space where n is number of nodes
 const zipperLists = (head1, head2) => {
-  let current1 = head1.next;
-  let current2 = head2;
-  let tail = head;
-  let count = 0;
+  if (head1 === null) return head2;
+  if (head2 === null) return head1;
 
-  while (current1 !== null && current2 !== null) {
-    if (count % 2 === 0) {
-      tail.next = current2;
-      current2 = current2.next;
-    } else {
-      tail.next = current1;
-      current1 = current1.next;
-    }
-    tail = tail.next;
-    count += 1;
-  }
-
-  if (current1) tail.next = current1;
-  if (current2) tail.next = current2;
+  const temp1Next = head1.next;
+  head1.next = head2;
+  const temp2Next = head2.next;
+  head2.next = zipperLists(temp1Next, temp2Next);
 
   return head1;
 };
@@ -40,10 +28,9 @@ module.exports = {
 
 // You may assume that both input lists are non-empty.
 
-// count = 5
-//  a -> x -> b -> y -> c -> z
-//                         tail
-// head1 =  a  ->  b  ->  c -> null
-                   //           curr1
+// head1 =  a  ->  b  ->  c -> null  
 // head2 = x  ->  y  ->  z -> null
-                   //    curr2
+
+//  a -> zipperList(x, b);
+//  
+                 
