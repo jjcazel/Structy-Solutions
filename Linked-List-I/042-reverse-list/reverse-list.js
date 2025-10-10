@@ -5,19 +5,12 @@
 //   }
 // }
 
-//O(n) time and O(1) space where n is the num of nodes
-const reverseList = (head) => {
-  let prev = null;
-  let current = head;
-
-  while (current !== null) {
-    let tempNext = current.next;
-    current.next = prev;
-    prev = current;
-    current = tempNext;
-  }
-
-  return prev;
+//O(n) time and O(n) space where n is the num of nodes
+const reverseList = (head, prev = null) => {
+  if (head === null) return prev;
+  const tempNext = head.next; // b
+  head.next = prev; 
+  return reverseList(tempNext, head)
 };
 
 module.exports = {
@@ -26,10 +19,8 @@ module.exports = {
 
 // Write a function, reverseList, that takes in the head of a linked list as an argument. The function should reverse the order of the nodes in the linked list in-place and return the new head of the reversed linked list.
 
-// f -> e -> d -> c -> b -> a -> null
+//  a  ->  b  ->  c 
 
-// null ->  a  ->  b  ->  c  ->  d  ->  e  ->  f  ->  null
-                                            //  prev   curr  temp
+// c -> b -> a
 
-
-// f -> e -> d -> c -> b -> a -> null 
+// a -> null
