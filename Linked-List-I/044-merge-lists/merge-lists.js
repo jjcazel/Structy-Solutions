@@ -7,25 +7,27 @@ class Node {
 
 // O(min(m, n)) time and O(1) space
 const mergeLists = (head1, head2) => {
-  let current1 = head1;
-  let current2 = head2;
-  let tail = new Node(null);
+  const dummyHead = new Node(null);
+    let tail = dummyHead;
+    let curr1 = head1;
+    let curr2 = head2;
 
-  while (current1 !== null && current2 !== null) {
-    if (current1.val < current2.val) {
-      tail.next = current1;
-      current1 = current1.next;
-    } else {
-      tail.next = current2;
-      current2 = current2.next;
+    while (curr1 !== null && curr2 !== null) {
+          if (curr1.val < curr2.val) {
+                  tail.next = curr1;
+                  curr1 = curr1.next;
+          } else {
+                  tail.next = curr2;
+                  curr2 = curr2.next;
+          }
+          tail = tail.next;
     }
-    tail = tail.next;
-  }
 
-  if (current1) tail.next = current1;
-  if (current2) tail.next = current2;
+    if (curr1 !== null) tail.next = curr1;
+    if (curr2 !== null) tail.next = curr2;
 
-  return tail.next;
+    return dummyHead.next;
+          
 }
 
 module.exports = {
@@ -41,6 +43,9 @@ module.exports = {
 //   5  ->  7  ->  10  ->  12  ->  20  ->  28
 //                                       curr1
 //   6  ->  8  ->  9  ->  25
-//                          curr2
+//                      curr2
+
+// dummyHead = null -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28
+//                                                                     tail
 
 // 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28 
