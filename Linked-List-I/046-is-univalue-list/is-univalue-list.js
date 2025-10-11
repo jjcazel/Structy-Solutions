@@ -5,13 +5,13 @@
 //   }
 // }
 
-// O(n) time and O(1) space
+// O(n) time and O(1) space where n is te number of nodes
 const isUnivalueList = (head) => {
+  const initialVal = head.val;
   let current = head;
-  const uniqueVal = head.val;
 
-  while (current !== null) {
-    if (current.val !== uniqueVal) return false;
+  while(current !== null) {
+    if (current.val !== initialVal) return false;
     current = current.next;
   }
 
@@ -26,5 +26,4 @@ module.exports = {
 
 // You may assume that the input list is non-empty.
 
-// a -> a -> a = true
-// a -> b -> c = false
+//   z  
