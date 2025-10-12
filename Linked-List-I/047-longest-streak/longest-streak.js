@@ -5,25 +5,24 @@
 //   }
 // }
 
-// O(n) time and O(1) space
+// O(n) time and O(1) space where n is number of nodes
 const longestStreak = (head) => {
-  if (head === null) return 0;
-  let currStreak = 0;
   let maxStreak = 0;
-  let currVal = head.val ? head.val : null;
+  let currStreak = 0;
+  let streakVal = head.val;
   let current = head;
 
   while (current !== null) {
-    if (current.val === currVal) {
+    if (current.val === streakVal) {
       currStreak += 1;
     } else {
-      if (currStreak > maxStreak) maxStreak = currStreak;
+      streakVal = current.val;
       currStreak = 1;
-      currVal = current.val;
     }
-    current = current.next
+    maxStreak = Math.max(maxStreak, currStreak);
+    current = current.next;
   }
-  if (currStreak > maxStreak) maxStreak = currStreak;
+  
 
   return maxStreak;
 };
@@ -34,6 +33,9 @@ module.exports = {
 
 // Write a function, longestStreak, that takes in the head of a linked list as an argument. The function should return the length of the longest consecutive streak of the same value within the list.
 
-//  9 -> 9 -> 1 -> 9 -> 9 -> 9 -> null
-//                          curr
-    
+//   5 ->  5  ->  7  ->  7  ->  7  ->  6 -> null
+//                                         curr
+
+// streakVal = 6
+// maxStreak= 3
+// currStreak = 1
