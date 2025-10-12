@@ -5,25 +5,20 @@
 //   }
 // }
 
-//O(n) time and O(1) space
+// O(n) time and O(1) space
 const removeNode = (head, targetVal) => {
-  let current = head;
+  if (head.val === targetVal) return head.next;
   let prev = null;
+  let current = head;
 
   while (current !== null) {
     if (current.val === targetVal) {
-      console.log('prev', prev, 'current', current);
-      if (prev === null) {
-        head = head.next;
-      } else {
-        prev.next = current.next;
-      }
+      prev.next = current.next;
       return head;
     }
     prev = current;
     current = current.next;
   }
-  return head;
 };
 
 module.exports = {
@@ -38,7 +33,7 @@ module.exports = {
 
 // You may assume that the input list contains the target.
 
-//           a -> b -> c -> null
-//         prev curr
-// removeNode(a, 'c')
-// a -> b -> d -> e -> f
+//  t
+// curr
+// target = t
+// prev = null
