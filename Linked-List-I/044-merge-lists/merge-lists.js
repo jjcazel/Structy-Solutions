@@ -5,47 +5,38 @@ class Node {
   }
 }
 
-// O(min(m, n)) time and O(1) space
+// O(n) time and O(1) space where n is the number of nodes
 const mergeLists = (head1, head2) => {
-  const dummyHead = new Node(null);
-    let tail = dummyHead;
-    let curr1 = head1;
-    let curr2 = head2;
+  let curr1 = head1;
+  let curr2 = head2;
+  const dummyNode = new Node(null);
+  let tail = dummyNode;
 
-    while (curr1 !== null && curr2 !== null) {
-          if (curr1.val < curr2.val) {
-                  tail.next = curr1;
-                  curr1 = curr1.next;
-          } else {
-                  tail.next = curr2;
-                  curr2 = curr2.next;
-          }
-          tail = tail.next;
+  while (curr1 !== null && curr2 !== null) {
+    if (curr1.val < curr2.val) {
+      tail.next = curr1;
+      curr1 = curr1.next;
+    } else {
+      tail.next = curr2;
+      curr2 = curr2.next;
     }
+    tail = tail.next;
+  }
 
-    if (curr1 !== null) tail.next = curr1;
-    if (curr2 !== null) tail.next = curr2;
+  if (curr1) tail.next = curr1;
+  if (curr2) tail.next = curr2;
 
-    return dummyHead.next;
-          
-}
+  return dummyNode.next;
+};
 
 module.exports = {
   mergeLists,
 };
 
-// Write a function, mergeLists, that takes in the head of two sorted linked lists as arguments. The function should merge the two lists together into single sorted linked list. The function should return the head of the merged linked list.
+// 5 -> 7 -> 10 -> 12 -> 20 -> 28
+//                           curr1
+// 6 -> 8 -> 9 -> 25
+//                  curr2
 
-// Do this in-place, by mutating the original Nodes.
-
-// You may assume that both input lists are non-empty and contain increasing sorted numbers.
-
-//   5  ->  7  ->  10  ->  12  ->  20  ->  28
-//                                       curr1
-//   6  ->  8  ->  9  ->  25
-//                      curr2
-
-// dummyHead = null -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28
-//                                                                     tail
-
-// 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28 
+//   null ->  5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28
+//dummyNode                                             tail
