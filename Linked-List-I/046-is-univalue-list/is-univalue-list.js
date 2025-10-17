@@ -5,11 +5,11 @@
 //   }
 // }
 
-// O(n) time and O(n) space where n is te number of nodes
-const isUnivalueList = (head) => {
+//O(n) time and O(n) space where n is the number of nodes
+const isUnivalueList = (head, currVal = head.val) => {
   if (head === null) return true;
-  if (head.next && head.val !== head.next.val) return false;
-  return isUnivalueList(head.next);
+  if (head.val !== currVal) return false;
+  return isUnivalueList(head.next, currVal);
 };
 
 module.exports = {
@@ -20,3 +20,6 @@ module.exports = {
 
 // You may assume that the input list is non-empty.
 
+// 7 -> 7 -> 4
+//           h 
+// currVal = 7
