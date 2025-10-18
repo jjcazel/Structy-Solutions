@@ -6,19 +6,13 @@
 //   }
 // }
 
+//O(n) time and O(n) space
 const treeSum = (root) => {
   if (root === null) return 0;
-  const queue = [ root ];
-  let sum = 0;
 
-  while (queue.length > 0) {
-    const currNode = queue.shift();
-    sum += currNode.val;
-    if (currNode.left) queue.push(currNode.left);
-    if (currNode.right) queue.push(currNode.right);
-  }
-
-  return sum;
+  const rightVals = treeSum(root.right);
+  const leftVals = treeSum(root.left);
+  return root.val + rightVals + leftVals;
 };
 
 module.exports = {
@@ -27,10 +21,7 @@ module.exports = {
 
 //       3
 //    /    \
-//   11     4
-//  / \      \
-// 4   -2     1
+//  11 (13) 4  (5)
+//  / \    / \
+// 4   -2 n   1
 
-// queue = [ 4, -2 ]
-// currNode = 4
-// sum = 18
