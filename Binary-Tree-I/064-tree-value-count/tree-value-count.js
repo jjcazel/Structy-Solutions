@@ -6,20 +6,11 @@
 //   }
 // }
 
-//O(n) time and O(n) space where n is the number of nodes
+// O(n) time and O(n) space
 const treeValueCount = (root, target) => {
   if (root === null) return 0;
-  const stack = [ root ];
-  let count = 0;
-  
-  while (stack.length > 0) {
-    const currNode = stack.pop();
-    if (currNode.val === target) count += 1;
-    if (currNode.right) stack.push(currNode.right);
-    if (currNode.left) stack.push(currNode.left);
-  }
-
-  return count;
+  const match = root.val === target ? 1 : 0;
+  return match + treeValueCount(root.left, target) + treeValueCount(root.right, target);
 };
 
 module.exports = {
@@ -32,4 +23,5 @@ module.exports = {
 //  / \     \
 // 4   6     12
 
-// count = 3
+// count = 2
+// treeValueCount(a,  12); // -> 2
