@@ -6,18 +6,18 @@
 //   }
 // }
 
-//O(n) time and O(n) space where n is the number of nodes
+//O(n) time and O(n) space
 const bottomRightValue = (root) => {
-  let lastVal = root.val;
   const queue = [ root ];
+  let lastVal = root.val;
 
   while (queue.length > 0) {
     const currNode = queue.shift();
-    lastVal = currNode.val;
-    if (currNode.left) queue.push(currNode.left);
+    lastVal = currNode.val
     if (currNode.right) queue.push(currNode.right);
+    if (currNode.left) queue.push(currNode.left);
   }
-
+  
   return lastVal;
 };
 
@@ -26,7 +26,10 @@ module.exports = {
 };
 
 //       3
+//    /    \
+//   11     10
+//  / \      \
+// 4   -2     1
 
-
-// lastVal = 3
-// queue [ 3 ]
+// lastVal = 1
+// [1 ]
