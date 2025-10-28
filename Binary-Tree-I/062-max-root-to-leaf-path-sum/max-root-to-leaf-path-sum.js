@@ -9,18 +9,22 @@
 //O(n) time and O(n) space
 const maxPathSum = (root) => {
   if (root === null) return -Infinity;
-  if (root.right === null && root.left === null) return root.val;
-  return root.val + Math.max(maxPathSum(root.right), maxPathSum(root.left));
+  if (root.left === null && root.right === null) return root.val;
+  return root.val + Math.max(maxPathSum(root.left), maxPathSum(root.right));
 };
 
 module.exports = {
   maxPathSum,
 };
 
-//        5
-//     /    \
-//    11    54
-//  /   \
-// 20   15
-//      / \
-//     1  3
+
+//       3
+//    /    \
+//   11     4
+//  / \      \
+// 4   -2     1
+
+// 3 + max(maxPathSum(11), maxPathSum(4))
+// 11 + max(recursive calls)
+
+// maxPathSum(a); // -> 18
