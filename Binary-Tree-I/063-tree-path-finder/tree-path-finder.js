@@ -6,14 +6,31 @@
 //   }
 // }
 
-//O(n) time and O(n) space
+// O(n^2) time and O(n) space where n is the number of nodes
 const pathFinder = (root, target) => {
+  const path = pathFinderHelper(root, target);
+  if (path === null) {
+    return null;
+  } else {
+    return path.reverse();
+  }
+}
+const pathFinderHelper = (root, target) => {
   if (root === null) return null;
-  if (root.val === target) return [root.val];
-  const rightPath = pathFinder(root.right, target);
-  const leftPath = pathFinder(root.left, target);
-  if (rightPath) return [ root.val, ...rightPath ];
-  if (leftPath) return [ root.val, ...leftPath ];
+  if (root.val === target) return [ root.val ];
+  
+  const rightVals = pathFinderHelper(root.right, target);
+  if (rightVals) {
+    rightVals.push(root.val);
+    return rightVals;
+  }
+  
+  const leftVals = pathFinderHelper(root.left, target);
+  if (leftVals) {
+    leftVals.push(root.val);
+    return leftVals;
+  }
+
   return null;
 };
 
@@ -21,10 +38,5 @@ module.exports = {
   pathFinder,
 };
 
-//      a
-//    /   \
-//   b     c
-//  / \     \
-// d   e     f
 
-// a
+
