@@ -6,18 +6,22 @@
 //   }
 // }
 
-// O(n^2) time and O(n) space where n is the number of nodes
+
+// O(n) time and O(n) space where n is the number of nodes
 const pathFinder = (root, target) => {
-  const path = pathFinderHelper(root, target);
-  if (path === null) {
-    return null;
-  } else {
-    return path.reverse();
-  }
+  const result = pathFinderHelper(root, target);
+  return result ? result.reverse() : null;
 }
+
 const pathFinderHelper = (root, target) => {
   if (root === null) return null;
   if (root.val === target) return [ root.val ];
+  
+  const leftVals = pathFinderHelper(root.left, target);
+  if (leftVals) {
+    leftVals.push(root.val);
+    return leftVals;
+  }
   
   const rightVals = pathFinderHelper(root.right, target);
   if (rightVals) {
@@ -25,12 +29,6 @@ const pathFinderHelper = (root, target) => {
     return rightVals;
   }
   
-  const leftVals = pathFinderHelper(root.left, target);
-  if (leftVals) {
-    leftVals.push(root.val);
-    return leftVals;
-  }
-
   return null;
 };
 
@@ -39,4 +37,16 @@ module.exports = {
 };
 
 
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
 
+// base cases: if root is your target return the root in an array
+// if root is null return null
+// recursive calls to left child and right child
+// 
+// return null
+
+// root = [ a, b, e ] 

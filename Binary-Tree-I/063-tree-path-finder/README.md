@@ -139,7 +139,7 @@ pathFinder(null, "x"); // -> null
 ```js
 const root = new Node(0);
 let curr = root;
-for (let i = 1; i <= 6000; i += 1) {
+for (let i = 1; i <= 10000; i += 1) {
   curr.right = new Node(i);
   curr = curr.right;
 }
@@ -149,14 +149,12 @@ for (let i = 1; i <= 6000; i += 1) {
 //        1
 //         \
 //          2
-//           \
-//            3
+//           .
+//            .
 //             .
-//              .
-//               .
-//              5999
-//                \
-//                6000
+//            9999
+//              \
+//              10000
 
-pathFinder(root, 3451); // -> [0, 1, 2, 3, ..., 3450, 3451]
+pathFinder(root, 6500); // -> [0, 1, 2, ..., 6499, 6500]
 ```
