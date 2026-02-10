@@ -6,16 +6,16 @@
 //   }
 // }
 
-//O(n) time and O(n) space where n is the number of nodes
+// O(n) time and O(n) space where N is the number of nodes
 const treeIncludes = (root, target) => {
   if (root === null) return false;
   const stack = [ root ];
 
-  while (stack.length > 0) {
+  while (stack.length) {
     const currNode = stack.pop();
     if (currNode.val === target) return true;
-    if (currNode.right) stack.push(currNode.right);
     if (currNode.left) stack.push(currNode.left);
+    if (currNode.right) stack.push(currNode.right);
   }
 
   return false;
@@ -30,3 +30,5 @@ module.exports = {
 //   b     c
 //  / \     \
 // d   e     f
+
+// stack = [ {val: e, left: {...}, right: {...} } ], currNode.val = e
