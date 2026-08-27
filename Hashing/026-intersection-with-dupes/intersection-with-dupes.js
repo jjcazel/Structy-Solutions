@@ -1,10 +1,9 @@
-// O(a + b) time and O(a + b) space where a and b represents each hash map
+// O(a + b) time and O(min(a + b)) space where a and b represents each hash map
 const intersectionWithDupes = (a, b) => {
   const dupes = [];
   const hashA = createElements(a);
-  // const hashB = createElements(b);
 
-  for (let ele of b) { // ele = 'b'
+  for (let ele of b) {
     if (ele in hashA && hashA[ele] > 0) {
       dupes.push(ele);
       hashA[ele]--;
@@ -30,15 +29,3 @@ const createElements = (elements) => {
 module.exports = {
   intersectionWithDupes,
 };
-
-
-// intersectionWithDupes(
-//  ["a", "b", "c", "b"], 
-//  ["x", "y", "b", "b"]
-// ); // -> ["b", "b"]
-
-// hashA = {"a": 1, "b": 2, "c": 1}
-// hashB = {"x": 1, "y": 1, "b": 2}
-
-// loop throug hashA and check in constant time if that ele is in hashB and if the value is the same push that value in the output array
-// the given value amount of times
