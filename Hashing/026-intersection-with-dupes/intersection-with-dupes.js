@@ -2,14 +2,12 @@
 const intersectionWithDupes = (a, b) => {
   const dupes = [];
   const hashA = createElements(a);
-  const hashB = createElements(b);
+  // const hashB = createElements(b);
 
-  for (const ele in hashA) {
-    if (ele in hashB) {
-      const numTimes = Math.min(hashA[ele], hashB[ele]);
-      for (let i = 0; i < numTimes; i++) {
-        dupes.push(ele);
-      }
+  for (let ele of b) { // ele = 'b'
+    if (ele in hashA && hashA[ele] > 0) {
+      dupes.push(ele);
+      hashA[ele]--;
     }
   }
 
