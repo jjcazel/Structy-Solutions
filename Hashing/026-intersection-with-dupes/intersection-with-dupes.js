@@ -1,29 +1,29 @@
-// O(a + b) time and O(min(a + b)) space where a and b represents each hash map
+// O(min(a, b)) time and O(min(a, b)) space
 const intersectionWithDupes = (a, b) => {
-  const dupes = [];
-  const hashA = createElements(a);
+  const freqMapA = createFreqMapA(a);
+  const intersections = [];
 
-  for (let ele of b) {
-    if (ele in hashA && hashA[ele] > 0) {
-      dupes.push(ele);
-      hashA[ele]--;
+  for (let char of b) {
+    if (char in freqMapA && freqMapA[char] > 0) {
+      intersections.push(char);
+      freqMapA[char]--;
     }
   }
 
-  return dupes;
+  return intersections;
 };
 
-const createElements = (elements) => {
-  const eles = {};
+function createFreqMapA(array) {
+  const hash = {};
 
-  for (const el of elements){
-    if (!(el in eles)) {
-      eles[el] = 0;
+  for (let char of array) {
+    if (!(char in hash)) {
+      hash[char] = 0;
     }
-    eles[el]++;
+    hash[char]++;
   }
 
-  return eles;
+  return hash;
 }
 
 module.exports = {
