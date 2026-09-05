@@ -5,18 +5,11 @@
 //   }
 // }
 
-//O(n) time and O(1) space
-const getNodeValue = (head, index) => {
-  let count = 0;
-  let current = head;
-
-  while (current !== null) {
-    if (count === index) return current.val;
-    count++;
-    current = current.next;
-  }
-
-  return null;
+//O(n) time and O(n) space
+const getNodeValue = (head, index, count = 0) => {
+  if (head === null) return null;
+  if (count === index) return head.val;
+  return getNodeValue(head.next, index, count + 1);
 };
 
 module.exports = {
