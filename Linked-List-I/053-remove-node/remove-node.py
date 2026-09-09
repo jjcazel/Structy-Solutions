@@ -14,9 +14,8 @@ def remove_node(head, target_val):
     if current.val == target_val:
       prev.next = current.next
       return head
-
-    temp_next = current.next
+      
     prev = current
-    current = temp_next
+    current = current.next
 
 
