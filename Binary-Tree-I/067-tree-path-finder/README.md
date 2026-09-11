@@ -1,0 +1,187 @@
+# tree path finder
+
+Write a function, _pathFinder_, that takes in the root of a binary tree and a target value.
+The function should return an array representing a path to the target value. If the target value
+is not found in the tree, then return _null_.
+
+You may assume that the tree contains unique values.
+
+#### test_00:
+
+```js
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
+
+pathFinder(a, 'e'); // -> [ 'a', 'b', 'e' ]
+```
+
+#### test_01:
+
+```js
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
+
+pathFinder(a, 'p'); // -> null
+```
+
+#### test_02:
+
+```js
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
+const g = new Node("g");
+const h = new Node("h");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+e.left = g;
+f.right = h;
+
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
+//    /       \
+//   g         h
+
+pathFinder(a, "c"); // -> ['a', 'c']
+```
+
+#### test_03:
+
+```js
+const a = new Node("a");
+const b = new Node("b");
+const c = new Node("c");
+const d = new Node("d");
+const e = new Node("e");
+const f = new Node("f");
+const g = new Node("g");
+const h = new Node("h");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+e.left = g;
+f.right = h;
+
+//      a
+//    /   \
+//   b     c
+//  / \     \
+// d   e     f
+//    /       \
+//   g         h
+
+pathFinder(a, "h"); // -> ['a', 'c', 'f', 'h']
+```
+
+#### test_04:
+
+```js
+const x = new Node("x");
+
+//      x
+
+pathFinder(x, "x"); // -> ['x']
+```
+
+#### test_05:
+
+```js
+pathFinder(null, "x"); // -> null
+```
+
+#### test_06:
+
+```js
+const root = new Node(0);
+let curr = root;
+for (let i = 1; i <= 10000; i += 1) {
+  curr.right = new Node(i);
+  curr = curr.right;
+}
+
+//      0
+//       \
+//        1
+//         \
+//          2
+//           .
+//            .
+//             .
+//            9999
+//              \
+//              10000
+
+pathFinder(root, 6500); // -> [0, 1, 2, ..., 6499, 6500]
+```
+
+#### test_07:
+
+```js
+const r = new Node("r");
+const s = new Node("s");
+const t = new Node("t");
+const u = new Node("u");
+const v = new Node("v");
+const w = new Node("w");
+
+t.left = s
+t.right = r
+s.right = w
+r.right = v
+v.right = u
+
+//      t
+//    /   \
+//   s     r
+//   \     \
+//    w     v
+//          \
+//           u
+
+pathFinder(t, "u"); // -> ['t', 'r', 'v', 'u']
+```
