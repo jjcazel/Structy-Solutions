@@ -1,24 +1,19 @@
 
-// O(n) time and O(n) space
+// O(n) time and O(n) space where n is the length of the array
 const pairSum = (numbers, targetSum) => {
-  const numsHash = {};
+  const previous = {};
 
   for (let i = 0; i < numbers.length; i++) {
-    const currNumber = numbers[i];
-    const difference = targetSum - currNumber;
-    if (!(currNumber in numsHash)) {
-      numsHash[currNumber] = i;
+    const number = numbers[i];
+    const difference = targetSum - number;
+    if (difference in previous) {
+      return [ previous[difference], i ];
     }
-    if (difference in numsHash && numsHash[difference] !== i) {
-      return [ numsHash[difference], numsHash[currNumber] ];
-    }
+
+    previous[number] = i;
   }
 };
 
-// pairSum([9, 9], 18); // -> [0, 1]
-// difference = 9
-// currNumber = 9
-// { 9: 0, }
 module.exports = {
   pairSum,
 };
