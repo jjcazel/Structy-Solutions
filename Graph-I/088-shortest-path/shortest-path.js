@@ -1,30 +1,42 @@
 
-// O(n) time and O(n) space where n is the number of nodes
+//O(n) time and O(n) space where n is the number of nodes
 const shortestPath = (edges, nodeA, nodeB) => {
   const graph = buildGraph(edges);
   const queue = [ [nodeA, 0] ];
-  const visited = new Set;
-  let minPathCount = Infinity;
+  const visited = new Set();
 
   while (queue.length) {
-    const [ currNode, count ] = queue.shift(); // optimize queue for constant operation
-    if (visited.has(currNode)) continue;
-    visited.add(currNode);
+    const [ currNode, pathCount ] = queue.shift();
     if (currNode === nodeB) {
-      minPathCount = Math.min(count, minPathCount);
+      return pathCount;
     }
     for (let neighbor of graph[currNode]) {
-      queue.push([ neighbor, count + 1 ]);
+      if (!visited.has(neighbor)) {
+        queue.push([ neighbor, pathCount + 1]);
+      }
+      visited.add(neighbor);
     }
   }
 
-  return minPathCount === Infinity ? -1 : minPathCount;
+  return -1;
 };
+
+// { 
+//   w: [ 'x', 'v' ], 
+//   x: [ 'w', 'y' ], 
+//   y: [ 'x', 'z' ], 
+//   z: [ 'y', 'v' ], 
+//   v: [ 'z', 'w' ] 
+// } 
+
+// currNode = w
+// nodeB = z
+
 
 const buildGraph = (edges) => {
   const graph = {};
 
-  for (let [ a, b ] of edges) {
+  for (let [a, b] of edges) {
     if (!(a in graph)) {
       graph[a] = [];
     }
