@@ -1,48 +1,29 @@
 
-// O(e) time and O(e) space where e is the number of edges
+// O(n) time and O(n) space, where n is the number of nodes
 const largestComponent = (graph) => {
-  let maxCount = -Infinity;
   const visited = new Set();
-  
-  for (let node in graph) {
-    let currCount = explore(node, graph, visited);
-    maxCount = Math.max(currCount, maxCount);
+  let maxSize = 0;
+
+  for (let node in graph){
+    let size = exploreIsland(node, graph, visited);
+    maxSize = Math.max(size, maxSize);
   }
-  
-  return maxCount === -Infinity ? 0 : 1;
+
+  return maxSize;
 };
 
-const explore = (node, graph, visited) => {
-  const stack = [ node ];
-  let count = 0;
+const exploreIsland = (node, graph, visited) => {
+  if (visited.has(String(node))) return 0;
 
-  while (stack.length) {
-    const currNode = stack.pop();
+  visited.add(String(node));
 
-    if (visited.has(currNode)) continue;
-    visited.add(currNode);
-    count++;
-    for (let neighbor of graph[currNode]) {
-      stack.push(neighbor);
-    }
+  let size = 1;
+  for (let neighbor of graph[node]) {
+    size += exploreIsland(neighbor, graph, visited);
   }
 
-  return count;
+  return size;
 }
-
-// visited = { 3, 4, 6, 5, 7, 8 }
-// count = 5
-
-// largestComponent({
-//   3: [],
-//   4: ['6'],
-//   6: ['4', '5', '7', '8'],
-//   8: ['6'],
-//   7: ['6'],
-//   5: ['6'],
-//   1: ['2'],
-//   2: ['1']
-// }); // -> 5
 
 module.exports = {
   largestComponent,
