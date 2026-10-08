@@ -7,10 +7,11 @@ const subarrayTargetSumSizeK = (nums, target, k) => {
     sum += nums[i];
   }
 
-  for (let i = 0; i < nums.length - k; i++) {
-    if (sum === target) count++;
+  for (let i = 0; i <= nums.length - k; i++) {
     sum -= nums[i];
     sum += nums[i + k];
+    
+    if (sum === target) count++;
   }
 
   return count;
