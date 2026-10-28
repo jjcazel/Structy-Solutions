@@ -22,9 +22,9 @@ const hasSubstringAnagram = (s, anagram) => {
   return false;
 };
 
-console.log(hasSubstringAnagram("greyhounds", "hoy")); // -> true
-console.log(hasSubstringAnagram("abc", "cba"));  // true: equal lengths
-console.log(hasSubstringAnagram("abcd", "dc")); // true: match in final window
+// console.log(hasSubstringAnagram("greyhounds", "hoy")); // -> true
+// console.log(hasSubstringAnagram("abc", "cba"));  // true: equal lengths
+// console.log(hasSubstringAnagram("abcd", "dc")); // true: match in final window
 // n = 3
 // i = 3
 // j = 5
