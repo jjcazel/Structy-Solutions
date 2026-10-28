@@ -1,5 +1,5 @@
 
-// O(nk) time and O(k) space, where n is the length of the string and k is the length of the anagram
+// O(n + k) time and O(k) space, where n is the length of the string and k is the length of the anagram
 const hasSubstringAnagram = (s, anagram) => {
   const set = new Set();
   const n = anagram.length;
