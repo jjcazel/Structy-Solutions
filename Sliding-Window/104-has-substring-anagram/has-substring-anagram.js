@@ -7,14 +7,16 @@ const hasSubstringAnagram = (s, anagram) => {
   for (let char of anagram) {
     set.add(char);
   }
+
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    if (set.has(s[i])) count++;
+  }
   
   for (let i = 0; i <= s.length - n; i++) {
-    let j = i;
-    while (j < i + n) {
-      if (!set.has(s[j])) break;
-      if (j === (n + i) - 1) return true;
-      j++;
-    }
+    if (count === n) return true;
+    if (set.has(s[i + n])) count++;
+    if (set.has(s[i])) count--;
   }
 
   return false;
