@@ -2,7 +2,7 @@
 // O(n + p) time and O(n + p) space where n = number of classes and p = num of prereqs
 const prereqsPossible = (numCourses, prereqs) => {
   const graph = makeGraph(prereqs, numCourses);
-  console.log(graph);
+  
   const visited = new Set();
   const visiting = new Set();
 
@@ -20,7 +20,7 @@ const detectCycle = (node, graph, visited, visiting) => {
   visiting.add(node);
 
   for (let neighbor of graph[node]) {
-    if (detectCycle(neighbor, graph, visited, visiting)) return false;
+    if (detectCycle(neighbor, graph, visited, visiting)) return true;
   }
 
   visiting.delete(node);
