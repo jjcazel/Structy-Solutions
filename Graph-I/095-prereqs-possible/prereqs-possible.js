@@ -1,32 +1,32 @@
 
-// O(v + e) time and O(v) space where v = vectors and e = edges
+// O(n + p) time and O(n + p) space where n = number of classes and p = num of prereqs
 const prereqsPossible = (numCourses, prereqs) => {
   const graph = makeGraph(prereqs, numCourses);
-
+  console.log(graph);
   const visited = new Set();
   const visiting = new Set();
 
   for (let node in graph) {
-    if (detectCycle(node, graph, visited, visiting) === false) return false;
+    if (detectCycle(node, graph, visited, visiting)) return false;
   }
 
   return true;
 };
 
 const detectCycle = (node, graph, visited, visiting) => {
-  if (visited.has(node)) return;
+  if (visited.has(node)) return false;
 
-  if (visiting.has(node)) return false;
+  if (visiting.has(node)) return true;
   visiting.add(node);
 
   for (let neighbor of graph[node]) {
-    if (detectCycle(neighbor, graph, visited, visiting) === false) return false;
+    if (detectCycle(neighbor, graph, visited, visiting)) return false;
   }
 
   visiting.delete(node);
   visited.add(node);
 
-  return true;
+  return false;
 }
 
 const makeGraph = (prereqs, numCourses) => {
@@ -38,7 +38,7 @@ const makeGraph = (prereqs, numCourses) => {
 
   for (let prereq of prereqs) {
     const [a, b] = prereq;
-    graph[a].push(b);
+    graph[a].push(String(b));
   }
 
   return graph;
