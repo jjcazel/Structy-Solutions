@@ -1,35 +1,33 @@
 
-// O(n + p) time and O(n + p) space where n = number of classes and p = num of prereqs
+//O(n + e) time and O(n + e) space, where n = node and e = edge
 const prereqsPossible = (numCourses, prereqs) => {
-  const graph = makeGraph(prereqs, numCourses);
-  
+  const graph = buildGraph(numCourses, prereqs);
+
   const visited = new Set();
   const visiting = new Set();
 
-  for (let node in graph) {
-    if (detectCycle(node, graph, visited, visiting)) return false;
+  for (let course in graph) {
+    if (detectCycle(course, graph, visited, visiting)) return false;
   }
 
   return true;
 };
 
-const detectCycle = (node, graph, visited, visiting) => {
-  if (visited.has(node)) return false;
+const detectCycle = (course, graph, visited, visiting) => {
+  if (visited.has(course)) return false;
+  if (visiting.has(course)) return true;
+  visiting.add(course);
 
-  if (visiting.has(node)) return true;
-  visiting.add(node);
-
-  for (let neighbor of graph[node]) {
+  for (let neighbor of graph[course]) {
     if (detectCycle(neighbor, graph, visited, visiting)) return true;
   }
 
-  visiting.delete(node);
-  visited.add(node);
-
+  visiting.delete(course);
+  visited.add(course);
   return false;
 }
 
-const makeGraph = (prereqs, numCourses) => {
+const buildGraph = (numCourses, prereqs) => {
   const graph = {};
 
   for (let num = 0; num < numCourses; num++) {
@@ -37,18 +35,19 @@ const makeGraph = (prereqs, numCourses) => {
   }
 
   for (let prereq of prereqs) {
-    const [a, b] = prereq;
-    graph[a].push(String(b));
+    const [courseA, courseB] = prereq;
+    graph[courseA].push(String(courseB));
   }
 
   return graph;
 }
 
-// OUTPUT: boolean, are all classes classes possible?
-// RULES: each subarray represents a prereq [A, B], courses from 0 to n - 1
-// INPUT: n = number of courses, prereqs list
-// CONSTRAINTS: only course up to n - 1
-// APPROACH: Create an adjacency list or graph out of the prereqs where each prereq points to an array of its related classes. Then run the grey/black cycle detection algorithm. If there is a cycle return false, else return true...
+
+// OUTPUT: boolean, are all classes possible?
+// RULES: [A, B] means you have to take class A before you can take B
+// INPUT: A list of subarrays listing each prereq pair and a number (n) of total classes to take
+// CONSTRAINTS: course ids will be from 0 to n - 1
+// APPROACH: create an adjacency list using the input. Then run the cycle detection algorithm (white, grey, black) using that adjacency list. If we detect a cycle return false otherwise return true.
 
 module.exports = {
   prereqsPossible,
