@@ -1,21 +1,19 @@
-// O(n + m) time and O(n + m) aux space where n = a.length and m = b.length
+
+// O(a + b) time and O(a + b) space
 const exclusiveItems = (a, b) => {
-  const setA = new Set(a);
-  const setB = new Set(b);
-  const result = [];
-
-  for (let charA of a) {
-    if (!setB.has(charA)) {
-      result.push(charA);
-    }
+  const set = new Set();
+  for (let ele of a) {
+    set.add(ele);
   }
-  for (let charB of b) {
-    if (!setA.has(charB)) {
-      result.push(charB);
+  for (let ele of b) {
+    if (set.has(ele)) {
+      set.delete(ele);
+    } else {
+      set.add(ele);
     }
   }
 
-  return result;
+  return Array.from(set);
 };
 
 module.exports = {
