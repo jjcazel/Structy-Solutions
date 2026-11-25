@@ -1,32 +1,31 @@
-// class Node {
-//   constructor(val) {
-//     this.val = val;
-//     this.next = null;
-//   }
-// }
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
 
-//O(n) time and O(1) space
+// O(n) time, O(1) space
 const longestStreak = (head) => {
-  if (head === null) return 0;
-  let currVal = head.val;
-  let maxCount = 1;
-  let currCount = 1;
-  let current = head.next;
+  let current = head;
+  let currVal = head?.val;
+  let streak = 0;
+  let maxStreak = streak;
 
   while (current !== null) {
-    if (current.val !== currVal) {
+    if (current.val === currVal) {
+      streak++;
+    } else {
       currVal = current.val;
-      maxCount = Math.max(currCount, maxCount);
-      currCount = 0;
+      streak = 1;
     }
-    currCount += 1;
+    maxStreak = Math.max(maxStreak, streak);
     current = current.next;
   }
 
-  maxCount = Math.max(currCount, maxCount);
-
-  return maxCount;
+  return maxStreak;
 };
+
 
 module.exports = {
   longestStreak,
